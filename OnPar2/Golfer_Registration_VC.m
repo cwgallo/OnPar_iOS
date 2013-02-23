@@ -61,10 +61,9 @@
     // initialize tee to AGGIES so 0 will not get passed in
     tee = AGGIES;
     
-    // initialize handedness and gender
-    hand = 1;
-    gender = 0;
-    
+    // since gender isn't required, initialize to nil
+    hand = [NSNumber numberWithInt: RIGHT_HAND];
+    gender = nil;
     
     HMSegmentedControl *teeSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Aggies", @"Maroons", @"Cowbells", @"Bulldogs"]];
     [teeSegment2 setFrame:CGRectMake(20, 273, 286, 30)];
@@ -467,3 +466,4 @@
 }
 
 @end
+
