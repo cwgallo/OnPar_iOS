@@ -13,6 +13,7 @@
 		2EAA462F16D310BC00B63CD4 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA462E16D310BC00B63CD4 /* SystemInfo.m */; };
 		2EAA463116D4151C00B63CD4 /* hole18.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAA463016D4151C00B63CD4 /* hole18.png */; };
 		2EBF803A16D433A300369EB1 /* Finish_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF803916D433A300369EB1 /* Finish_VC.m */; };
+		B607C84216D9755000ACBE12 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B607C84116D9755000ACBE12 /* HMSegmentedControl.m */; };
 		B611325516CB0F670032AD4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B611325416CB0F670032AD4B /* UIKit.framework */; };
 		B611325716CB0F670032AD4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B611325616CB0F670032AD4B /* Foundation.framework */; };
 		B611325916CB0F670032AD4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B611325816CB0F670032AD4B /* CoreGraphics.framework */; };
@@ -189,6 +190,8 @@
 		2EAA463016D4151C00B63CD4 /* hole18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hole18.png; sourceTree = "<group>"; };
 		2EBF803816D433A300369EB1 /* Finish_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finish_VC.h; sourceTree = "<group>"; };
 		2EBF803916D433A300369EB1 /* Finish_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Finish_VC.m; sourceTree = "<group>"; };
+		B607C84016D9755000ACBE12 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		B607C84116D9755000ACBE12 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		B611325116CB0F670032AD4B /* OnPar2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnPar2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B611325416CB0F670032AD4B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B611325616CB0F670032AD4B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -411,6 +414,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B607C83F16D9755000ACBE12 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				B607C84016D9755000ACBE12 /* HMSegmentedControl.h */,
+				B607C84116D9755000ACBE12 /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
 		B611324816CB0F670032AD4B = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +552,7 @@
 				B6A54C7216D0A462002B0107 /* DCRoundSwitch */,
 				B62E800616D4771E006E78B1 /* Defines */,
 				B61132C816CD92B90032AD4B /* CoreDataObjects */,
+				B607C83F16D9755000ACBE12 /* HMSegmentedControl */,
 				B61132D816CD92B90032AD4B /* LRResty */,
 				B611330E16CD92B90032AD4B /* Math */,
 				B611331316CD92B90032AD4B /* MBProgressHUD */,
@@ -1058,6 +1071,7 @@
 				2EAA462C16D27F1200B63CD4 /* Hole.m in Sources */,
 				2EAA462F16D310BC00B63CD4 /* SystemInfo.m in Sources */,
 				2EBF803A16D433A300369EB1 /* Finish_VC.m in Sources */,
+				B607C84216D9755000ACBE12 /* HMSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

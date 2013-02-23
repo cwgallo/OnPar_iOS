@@ -747,7 +747,7 @@
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y9L-Xf-XDR" customClass="SLGlowingTextField">
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="131" id="p2F-Ii-1jH"/>
+                                            <constraint firstAttribute="width" constant="137" id="R6m-za-unb"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -807,7 +807,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QzQ-FL-xGC" customClass="SLGlowingTextField">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="bFX-fp-L1r"/>
-                                            <constraint firstAttribute="width" constant="280" id="gMy-46-zbb"/>
+                                            <constraint firstAttribute="width" constant="286" id="g7W-Op-OKv"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -827,7 +827,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="huY-bl-9qI">
+                                    <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="huY-bl-9qI">
                                         <segments>
                                             <segment title="Aggies"/>
                                             <segment title="Maroons"/>
@@ -853,7 +853,7 @@
                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="WsC-IU-xrg">
+                                    <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="WsC-IU-xrg">
                                         <constraints>
                                             <constraint firstAttribute="width" constant="286" id="XFE-ei-Pbd"/>
                                         </constraints>
@@ -887,7 +887,6 @@
                                     <constraint firstItem="WsC-IU-xrg" firstAttribute="top" secondItem="oC3-3E-PU6" secondAttribute="top" constant="198" id="KBi-sF-LZh"/>
                                     <constraint firstItem="QzQ-FL-xGC" firstAttribute="top" secondItem="oC3-3E-PU6" secondAttribute="top" constant="130" id="Kz7-aN-D1h"/>
                                     <constraint firstItem="Zh7-aB-KcX" firstAttribute="top" secondItem="oC3-3E-PU6" secondAttribute="top" constant="413" id="N6Y-4Y-ztE"/>
-                                    <constraint firstItem="YeL-YI-XYy" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="243" id="Noz-N2-l5H"/>
                                     <constraint firstItem="WsC-IU-xrg" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Ri4-SS-pmP"/>
                                     <constraint firstItem="i0s-NM-08q" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="18" id="SeC-bV-zfa"/>
                                     <constraint firstItem="Y9L-Xf-XDR" firstAttribute="bottom" secondItem="BqZ-Mm-5y9" secondAttribute="bottom" type="default" id="Sm3-hu-SIA"/>
@@ -897,6 +896,7 @@
                                     <constraint firstItem="9xX-ft-BsK" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="XEx-L5-AJN"/>
                                     <constraint firstItem="i0s-NM-08q" firstAttribute="top" secondItem="oC3-3E-PU6" secondAttribute="top" constant="27" id="Y9p-10-F69"/>
                                     <constraint firstItem="huY-bl-9qI" firstAttribute="trailing" secondItem="WsC-IU-xrg" secondAttribute="trailing" type="default" id="Zty-qy-1xM"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y9L-Xf-XDR" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ZxP-1M-OxN"/>
                                     <constraint firstItem="9xX-ft-BsK" firstAttribute="trailing" secondItem="IPw-uS-rVI" secondAttribute="trailing" type="default" id="aNb-01-OlJ"/>
                                     <constraint firstItem="Zh7-aB-KcX" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bHX-Bh-czu"/>
                                     <constraint firstItem="eG0-Bl-EnX" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bgu-n1-7FZ"/>
@@ -906,7 +906,6 @@
                                     <constraint firstItem="QGF-V3-aVf" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="h0k-dU-BRm"/>
                                     <constraint firstItem="9xX-ft-BsK" firstAttribute="top" secondItem="y10-TD-nee" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="hMW-a6-kzI"/>
                                     <constraint firstItem="eG0-Bl-EnX" firstAttribute="top" secondItem="oC3-3E-PU6" secondAttribute="top" constant="323" id="hf1-4a-g6w"/>
-                                    <constraint firstItem="Y9L-Xf-XDR" firstAttribute="trailing" secondItem="QzQ-FL-xGC" secondAttribute="trailing" type="default" id="iPy-4y-saW"/>
                                     <constraint firstItem="gcq-fr-tI0" firstAttribute="top" secondItem="oC3-3E-PU6" secondAttribute="top" constant="243" id="iym-6h-cf6"/>
                                     <constraint firstItem="Zh7-aB-KcX" firstAttribute="trailing" secondItem="De4-qd-Lyf" secondAttribute="trailing" type="default" id="kqE-vv-mJO"/>
                                     <constraint firstItem="QGF-V3-aVf" firstAttribute="top" secondItem="QzQ-FL-xGC" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="mJt-Dn-mHj"/>
@@ -917,6 +916,7 @@
                                     <constraint firstItem="IPw-uS-rVI" firstAttribute="leading" secondItem="oC3-3E-PU6" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="u8w-mV-eZ5"/>
                                     <constraint firstItem="y10-TD-nee" firstAttribute="top" secondItem="Zh7-aB-KcX" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="uaf-oN-IvM"/>
                                     <constraint firstAttribute="bottom" secondItem="IPw-uS-rVI" secondAttribute="bottom" constant="22" id="y4Z-Rm-Zyu"/>
+                                    <constraint firstAttribute="trailing" secondItem="QzQ-FL-xGC" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="yo1-Kt-daX"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -944,6 +944,7 @@
                         <outlet property="lastNameTextField" destination="Y9L-Xf-XDR" id="rhh-Ik-hTd"/>
                         <outlet property="membershipNumberTextField" destination="De4-qd-Lyf" id="sy7-7M-3mO"/>
                         <outlet property="nicknameTextField" destination="Zh7-aB-KcX" id="EY0-Md-neH"/>
+                        <outlet property="scrollView" destination="oC3-3E-PU6" id="Agn-cd-b7h"/>
                         <outlet property="teeSegment" destination="huY-bl-9qI" id="cKp-XZ-shL"/>
                     </connections>
                 </viewController>
@@ -1009,6 +1010,7 @@
                 <relationship kind="outlet" name="lastNameTextField" candidateClass="SLGlowingTextField"/>
                 <relationship kind="outlet" name="membershipNumberTextField" candidateClass="SLGlowingTextField"/>
                 <relationship kind="outlet" name="nicknameTextField" candidateClass="SLGlowingTextField"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="TPKeyboardAvoidingScrollView"/>
                 <relationship kind="outlet" name="teeSegment" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>

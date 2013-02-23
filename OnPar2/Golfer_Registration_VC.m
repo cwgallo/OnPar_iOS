@@ -25,6 +25,7 @@
 @synthesize nicknameTextField;
 @synthesize handSegment,teeSegment, genderSegment;
 @synthesize birthdateTextField;
+@synthesize scrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +64,39 @@
     // initialize handedness and gender
     hand = 1;
     gender = 0;
+    
+    
+    HMSegmentedControl *teeSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Aggies", @"Maroons", @"Cowbells", @"Bulldogs"]];
+    [teeSegment2 setFrame:CGRectMake(20, 273, 286, 30)];
+    [teeSegment2 setIndexChangeBlock:^(NSInteger index) {
+        [self teeChanged2:index];
+    }];
+    [teeSegment2 setSelectionIndicatorHeight:4.0f];
+    [teeSegment2 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
+    [teeSegment2 setTextColor:[UIColor whiteColor]];
+    [teeSegment2 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
+    [teeSegment2 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
+    [teeSegment2 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
+    [teeSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
+    [teeSegment2 setTag:2];
+    [self.scrollView addSubview:teeSegment2];
+
+    
+    HMSegmentedControl *handSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Left", @"Right"]];
+    [handSegment2 setFrame:CGRectMake(20, 198, 286, 30)];
+    [handSegment2 setIndexChangeBlock:^(NSInteger index) {
+        [self handChanged2:index];
+    }];
+    [handSegment2 setSelectionIndicatorHeight:4.0f];
+    [handSegment2 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
+    [handSegment2 setTextColor:[UIColor whiteColor]];
+    [handSegment2 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
+    [handSegment2 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
+    [handSegment2 setSelectedSegmentIndex:1];
+    [handSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
+    //[handSegment2 setCenter:CGPointMake(160, 160)];
+    [handSegment2 setTag:2];
+    [self.scrollView addSubview:handSegment2];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -317,9 +351,11 @@
     }
 }
 
-- (IBAction)teeChanged:(id)sender {
+
+- (IBAction)teeChanged2:(int)index {
     
-    switch (self.teeSegment.selectedSegmentIndex) {
+    //switch (self.teeSegment.selectedSegmentIndex) {
+    switch (index){
             case 0:
                 tee = AGGIES;
                 NSLog(@"aggies");
@@ -341,10 +377,9 @@
         }
 }
 
-
-- (IBAction)handChanged:(id)sender {
+- (IBAction)handChanged2:(int)index {
     
-    switch (self.handSegment.selectedSegmentIndex) {
+    switch (index) {
         case 0:
             // left handed
             hand = 0;
@@ -359,7 +394,6 @@
             break;
     }
 }
-
 
 - (IBAction)genderChanged:(id)sender {
     

@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *genderSegment;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *handSegment;
 @property (strong, nonatomic) IBOutlet SLGlowingTextField *birthdateTextField;
+@property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;

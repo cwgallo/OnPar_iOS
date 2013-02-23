@@ -26,6 +26,9 @@
 // DCRoundSwitch
 #import "DCRoundSwitch.h"
 
+// HMSegmentedControl
+#import "HMSegmentedControl.h"
+
 // LRResty
 #import "LRResty.h"
 
