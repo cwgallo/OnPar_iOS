@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C2034" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Hole" representedClassName="Hole" syncable="YES">
+        <attribute name="distance" optional="YES" attributeType="Integer 32" minValueString="1" syncable="YES"/>
+        <attribute name="fairway_in_reg" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="firstRefLat" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="firstRefLong" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="firstRefX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="firstRefY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="green_in_reg" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="holeNumber" attributeType="Integer 32" minValueString="1" maxValueString="18" syncable="YES"/>
+        <attribute name="holeScore" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="par" optional="YES" attributeType="Integer 32" minValueString="1" syncable="YES"/>
+        <attribute name="putts" optional="YES" attributeType="Integer 32" minValueString="1" syncable="YES"/>
+        <attribute name="secondRefLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="secondRefLong" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="secondRefX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="secondRefY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="round" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Round" inverseName="holes" inverseEntity="Round" syncable="YES"/>
+        <relationship name="shots" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shot" inverseName="hole" inverseEntity="Shot" syncable="YES"/>
+    </entity>
+    <entity name="Round" representedClassName="Round" syncable="YES">
+        <attribute name="courseID" attributeType="Integer 32" minValueString="1" defaultValueString="1" syncable="YES"/>
+        <attribute name="startTime" attributeType="String" syncable="YES"/>
+        <attribute name="teeID" attributeType="Integer 32" minValueString="1" maxValueString="4" syncable="YES"/>
+        <attribute name="totalScore" optional="YES" attributeType="Integer 64" minValueString="1" syncable="YES"/>
+        <attribute name="userID" attributeType="Integer 32" minValueString="1" syncable="YES"/>
+        <relationship name="holes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Hole" inverseName="round" inverseEntity="Hole" syncable="YES"/>
+    </entity>
+    <entity name="Shot" representedClassName="Shot" syncable="YES">
+        <attribute name="aimLatitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="aimLongitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="club" optional="YES" attributeType="Integer 32" minValueString="1" syncable="YES"/>
+        <attribute name="endLatitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="endLongitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="shotNumber" optional="YES" attributeType="Integer 32" minValueString="1" syncable="YES"/>
+        <attribute name="startLatitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="startLongitude" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <relationship name="hole" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hole" inverseName="shots" inverseEntity="Hole" syncable="YES"/>
+    </entity>
+    <entity name="SystemInfo" representedClassName="SystemInfo" syncable="YES">
+        <attribute name="registerEmail" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="email" attributeType="String" syncable="YES"/>
+        <attribute name="memberID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 32" minValueString="1" maxValueString="4" syncable="YES"/>
+        <attribute name="tee" attributeType="Integer 32" minValueString="1" maxValueString="4" syncable="YES"/>
+        <attribute name="userID" attributeType="Integer 32" minValueString="1" syncable="YES"/>
+        <relationship name="stageInfo" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UserStageInfo" inverseName="user" inverseEntity="UserStageInfo" syncable="YES"/>
+    </entity>
+    <entity name="UserStageInfo" representedClassName="UserStageInfo" syncable="YES">
+        <attribute name="currentGolfer" attributeType="Boolean" syncable="YES"/>
+        <attribute name="holeNumber" attributeType="Integer 32" minValueString="1" maxValueString="18" defaultValueString="1" syncable="YES"/>
+        <attribute name="shotNumber" attributeType="Integer 32" minValueString="1" defaultValueString="1" syncable="YES"/>
+        <attribute name="stage" attributeType="Integer 32" minValueString="0" maxValueString="4" defaultValueString="0" syncable="YES"/>
+        <relationship name="user" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="User" inverseName="stageInfo" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Hole" positionX="-6795" positionY="-7173" width="128" height="298"/>
+        <element name="Round" positionX="-7038" positionY="-7047" width="128" height="133"/>
+        <element name="Shot" positionX="-6545" positionY="-7047" width="128" height="178"/>
+        <element name="User" positionX="-7056" positionY="-6840" width="128" height="163"/>
+        <element name="UserStageInfo" positionX="-6797" positionY="-6714" width="128" height="118"/>
+        <element name="SystemInfo" positionX="-6572" positionY="-6723" width="128" height="58"/>
+    </elements>
+</model>
