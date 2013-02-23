@@ -15,8 +15,8 @@
 
 @implementation Golfer_Registration_VC{
     int tee;
-    int hand;
-    int gender;
+    NSNumber *hand;
+    NSNumber *gender;
 }
 
 @synthesize firstNameTextField, lastNameTextField;
@@ -105,8 +105,9 @@
     tee = AGGIES;
     
     // initialize handedness and gender
-    hand = 1;
-    gender = 0;
+    // since gender isn't required, initialize to nil
+    hand = [NSNumber numberWithInt: RIGHT_HAND];
+    gender = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,31 +129,78 @@
     [nicknameTextField resignFirstResponder];
     
     // proper algorithm steps
-    // 1. Check to make sure all required fields are set.
-    // 2. Check email address is a valid email.
-    // 3. Check to see if the API is reachable (aka connected to clubhouse WiFi)
-    // 4. Start spinner
-    // 5. Make request
-    // 6. Stop spinner
-    // 7. Deal with error, if any
-    // 8. Add User to core data
-    // 9. dismiss page
+    // 1. Check email address is a valid email.
+    // 2. if they inputted a birthdate, make sure it is a valid input
+    // 3. Check to make sure all required fields are set.
+    // 4. Check to see if the API is reachable (aka connected to clubhouse WiFi)
+    // 5. Start spinner
+    // 6. Make request
+    // 7. Stop spinner
+    // 8. Deal with error, if any
+    // 9. Add User to core data
+    // 10. dismiss page
     
-    // make sure required fields are set
-    if (lastNameTextField.text.length != 0
-        && firstNameTextField.text.length != 0
-        && emailAddressTextField.text.length != 0) {
+    BOOL inputValidationPassed = YES;
+    NSString *formattedBirthDate = @"";
+    
+    // check for valid email address
+    // Borrowed code from - sligthly modified
+    // http://stackoverflow.com/questions/3139619/check-that-an-email-address-is-valid-on-ios
+    
+    BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
+    NSString *stricterFilterString = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSString *laxString = @".+@.+\\.[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    if (![emailTest evaluateWithObject: self.emailAddressTextField.text]) {
+        inputValidationPassed = NO;
+        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The email you entered is not a valid email address. Please try again."];
+        [alert applyCustomAlertAppearance];
+        __weak AHAlertView *weakAlert = alert;
+        [alert addButtonWithTitle:@"OK" block:^{
+            weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
+        }];
+        [alert show];
+    }
+    
+    if (self.birthdateTextField.text.length != 0) {
+        // first check to see if there is input in this field,
+        // make sure it was formatted correctly on input
+        // this regex lets the user put in only one number for both
+        // month and day
+        // they have to put in 4 digits for year
+        NSString *regexp = @"[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}";
+        NSPredicate *myTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexp];
         
-        // check for valid email address
-        // Borrowed code from - sligthly modified
-        // http://stackoverflow.com/questions/3139619/check-that-an-email-address-is-valid-on-ios
-        
-        BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
-        NSString *stricterFilterString = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-        NSString *laxString = @".+@.+\\.[A-Za-z]{2}[A-Za-z]*";
-        NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-        if ([emailTest evaluateWithObject: self.emailAddressTextField.text]) {
+        if ([myTest evaluateWithObject: self.birthdateTextField.text]) {
+            // format the birthdate for proper mySQL format
+            // yyyy-mm-dd
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat: @"MM/dd/yyyy"];
+            NSDate *date = [formatter dateFromString: self.birthdateTextField.text];
+            [formatter setDateFormat: @"yyyy-MM-dd"];
+            formattedBirthDate = [formatter stringFromDate: date];
+            
+        } else {
+            inputValidationPassed = NO;
+            AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The birthdate you entered is not a valid format. Input mm/dd/yyyy"];
+            [alert applyCustomAlertAppearance];
+            __weak AHAlertView *weakAlert = alert;
+            [alert addButtonWithTitle:@"OK" block:^{
+                weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
+            }];
+            [alert show];
+        }
+    }
+    
+    // if the input validation passed, execute the request
+    if (inputValidationPassed) {
+        // make sure required fields are set
+        if (lastNameTextField.text.length != 0
+            && firstNameTextField.text.length != 0
+            && emailAddressTextField.text.length != 0) {
             
             // check for reachability
             Reachability *reach = [Reachability reachabilityWithHostname: HOSTNAME];
@@ -166,6 +214,24 @@
                 // format the name string correctly
                 NSString *name = [NSString stringWithFormat: @"%@%@%@", lastNameTextField.text, @", ", firstNameTextField.text];
                 
+                // figure out the gender
+                NSString *genderSelection;
+                if (gender == nil) {
+                    genderSelection = @"";
+                } else {
+                    if ([gender isEqualToNumber: [NSNumber numberWithInt: FEMALE]]) {
+                        genderSelection = @"f";
+                    } else {
+                        genderSelection = @"m";
+                    }
+                }
+                
+                // figure out which hand they use
+                BOOL handSelect = YES;
+                if ([hand isEqualToNumber: [NSNumber numberWithInt: LEFT_HAND]]) {
+                    handSelect = NO;
+                }
+                
                 // create NSDictionary representing the User to send to the API
                 NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
                 
@@ -173,6 +239,10 @@
                 [params setObject: self.nicknameTextField.text.length != 0 ? self.nicknameTextField.text : [NSNull null] forKey: @"nickname"];
                 [params setObject: name ? name : [NSNull null] forKey: @"name"];
                 [params setObject: self.emailAddressTextField.text ? self.emailAddressTextField.text : [NSNull null] forKey: @"email"];
+                [params setObject: formattedBirthDate.length != 0 ? formattedBirthDate : [NSNull null]  forKey: @"birthDate"];
+                [params setObject: genderSelection.length != 0 ? genderSelection : [NSNull null] forKey: @"gender"];
+                [params setObject: [NSNumber numberWithBool: handSelect] forKey: @"rightHanded"];
+                
                 
                 NSDictionary *user = [[NSDictionary alloc] initWithObjectsAndKeys: params, @"user" , nil];
                 
@@ -259,10 +329,10 @@
                          if (![[appDelegate managedObjectContext] save: &error]) {
                              NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
                          }
-                
-                 // go back 2 view controllers
-                 [[self navigationController] popToViewController:[[[self navigationController] viewControllers] objectAtIndex: [[[self navigationController] viewControllers] count] - 3]animated:YES];
-                     
+                         
+                         // go back 2 view controllers
+                         [[self navigationController] popToViewController:[[[self navigationController] viewControllers] objectAtIndex: [[[self navigationController] viewControllers] count] - 3]animated:YES];
+                         
                      } else {
                          if (r.status >= 500) {
                              AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Server Error" message:@"The server is experiencing problems. Please try again later."];
@@ -329,8 +399,9 @@
                 [alert show];
             }
         } else {
-            // email validation failed
-            AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The email you entered is not a valid email address. Please try again."];
+            // required fields failed
+            
+            AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Error" message:@"Please fill out all required fields."];
             [alert applyCustomAlertAppearance];
             __weak AHAlertView *weakAlert = alert;
             [alert addButtonWithTitle:@"OK" block:^{
@@ -338,16 +409,6 @@
             }];
             [alert show];
         }
-    } else {
-        // required fields failed
-        
-        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Error" message:@"Please fill out all required fields."];
-        [alert applyCustomAlertAppearance];
-        __weak AHAlertView *weakAlert = alert;
-        [alert addButtonWithTitle:@"OK" block:^{
-            weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
-        }];
-        [alert show];
     }
 }
 
@@ -358,19 +419,15 @@
     switch (index){
             case 0:
                 tee = AGGIES;
-                NSLog(@"aggies");
                 break;
             case 1:
                 tee = MAROONS;
-                NSLog(@"maroons");
                 break;
             case 2:
                 tee = COWBELLS;
-                NSLog(@"cowbells");
                 break;
             case 3:
                 tee = BULLDOGS;
-                NSLog(@"bulldogs");
                 break;
             default:
                 break;
@@ -382,13 +439,11 @@
     switch (index) {
         case 0:
             // left handed
-            hand = 0;
-            NSLog(@"left handed");
+            hand = [NSNumber numberWithInt: LEFT_HAND];
             break;
         case 1:
             // right handed
-            hand = 1;
-            NSLog(@"right handed");
+            hand = [NSNumber numberWithInt: RIGHT_HAND];
             break;
         default:
             break;
@@ -400,13 +455,11 @@
     switch (self.genderSegment.selectedSegmentIndex) {
         case 0:
             // male
-            gender = 0;
-            NSLog(@"male");
+            gender = [NSNumber numberWithInt: MALE];
             break;
         case 1:
             // female
-            gender = 1;
-            NSLog(@"female");
+            gender = [NSNumber numberWithInt: FEMALE];
             break;
         default:
             break;
