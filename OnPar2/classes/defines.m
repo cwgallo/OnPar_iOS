@@ -64,6 +64,12 @@ int const STAGE_START         = 2;
 int const STAGE_END           = 3;
 int const STAGE_DONE          = 4;
 
+int const MALE = 1;
+int const FEMALE = 0;
+
+int const RIGHT_HAND = 1;
+int const LEFT_HAND = 0;
+
 NSString *const HOSTNAME = @"shadowrealm.cse.msstate.edu";
 NSString *const BASE_URL = @"http://shadowrealm.cse.msstate.edu/gsas/API/";
 

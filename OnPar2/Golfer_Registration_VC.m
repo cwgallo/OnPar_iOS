@@ -15,8 +15,8 @@
 
 @implementation Golfer_Registration_VC{
     int tee;
-    int hand;
-    int gender;
+    NSNumber *hand;
+    NSNumber *gender;
 }
 
 @synthesize firstNameTextField, lastNameTextField;
@@ -61,8 +61,9 @@
     tee = AGGIES;
     
     // initialize handedness and gender
-    hand = 1;
-    gender = 0;
+    // since gender isn't required, initialize to nil
+    hand = [NSNumber numberWithInt: RIGHT_HAND];
+    gender = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,8 +72,9 @@
     tee = AGGIES;
     
     // initialize handedness and gender
-    hand = 1;
-    gender = 0;
+    // since gender isn't required, initialize to nil
+    hand = [NSNumber numberWithInt: RIGHT_HAND];
+    gender = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -160,9 +162,6 @@
         }
     }
     
-    NSLog(@"%@", formattedBirthDate);
-    
-    
     // if the input validation passed, execute the request
     if (inputValidationPassed) {
         // make sure required fields are set
@@ -182,6 +181,24 @@
                 // format the name string correctly
                 NSString *name = [NSString stringWithFormat: @"%@%@%@", lastNameTextField.text, @", ", firstNameTextField.text];
                 
+                // figure out the gender
+                NSString *genderSelection;
+                if (gender == nil) {
+                    genderSelection = @"";
+                } else {
+                    if ([gender isEqualToNumber: [NSNumber numberWithInt: FEMALE]]) {
+                        genderSelection = @"f";
+                    } else {
+                        genderSelection = @"m";
+                    }
+                }
+                
+                // figure out which hand they use
+                BOOL handSelect = YES;
+                if ([hand isEqualToNumber: [NSNumber numberWithInt: LEFT_HAND]]) {
+                    handSelect = NO;
+                }
+                
                 // create NSDictionary representing the User to send to the API
                 NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
                 
@@ -190,6 +207,8 @@
                 [params setObject: name ? name : [NSNull null] forKey: @"name"];
                 [params setObject: self.emailAddressTextField.text ? self.emailAddressTextField.text : [NSNull null] forKey: @"email"];
                 [params setObject: formattedBirthDate.length != 0 ? formattedBirthDate : [NSNull null]  forKey: @"birthDate"];
+                [params setObject: genderSelection.length != 0 ? genderSelection : [NSNull null] forKey: @"gender"];
+                [params setObject: [NSNumber numberWithBool: handSelect] forKey: @"rightHanded"];
                 
                 
                 NSDictionary *user = [[NSDictionary alloc] initWithObjectsAndKeys: params, @"user" , nil];
@@ -386,13 +405,11 @@
     switch (self.handSegment.selectedSegmentIndex) {
         case 0:
             // left handed
-            hand = 0;
-            NSLog(@"left handed");
+            hand = [NSNumber numberWithInt: LEFT_HAND];
             break;
         case 1:
             // right handed
-            hand = 1;
-            NSLog(@"right handed");
+            hand = [NSNumber numberWithInt: RIGHT_HAND];
             break;
         default:
             break;
@@ -405,13 +422,11 @@
     switch (self.genderSegment.selectedSegmentIndex) {
         case 0:
             // male
-            gender = 0;
-            NSLog(@"male");
+            gender = [NSNumber numberWithInt: MALE];
             break;
         case 1:
             // female
-            gender = 1;
-            NSLog(@"female");
+            gender = [NSNumber numberWithInt: FEMALE];
             break;
         default:
             break;
