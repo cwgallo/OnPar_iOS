@@ -153,7 +153,7 @@
     // don't hide the nav bar
     [NSTimer scheduledTimerWithTimeInterval:0.20 target:self selector:@selector(showNavBar) userInfo:nil repeats:NO];
     
-//    self.navigationController.navigationBarHidden = NO;
+    //self.navigationController.navigationBarHidden = NO;
     //[[[self navigationController] navigationBar] setHidden:NO];
     
     // set the picture for the golfer
@@ -632,7 +632,7 @@
     [myImageView setImage: image];
 }
 
-+(UIImage*) drawImage:(UIImage*) fgImage
+-(UIImage *) drawImage:(UIImage*) fgImage
               inImage:(UIImage*) bgImage
               atPoint:(CGPoint)  point
 {
@@ -727,6 +727,18 @@
         if (![[appDelegate managedObjectContext] save: &error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
+        
+        // redraw the picture
+        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
+        
+        UIImage *holeImage = [UIImage imageNamed:filename];
+        UIImage *redDot = [UIImage imageNamed: @"reddot.jpg"];
+        
+        UIImage *newImage = [self drawImage: redDot
+                                    inImage: holeImage
+                                    atPoint: location];
+        
+        [myImageView setImage: newImage];
         
         // instead of transitioning, show the done button
         self.doneButton.hidden = NO;
