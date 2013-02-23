@@ -21,7 +21,8 @@
 @synthesize emailAddressTextField;
 @synthesize membershipNumberTextField;
 @synthesize nicknameTextField;
-@synthesize teeSegment;
+@synthesize handSegment,teeSegment, genderSegment;
+@synthesize birthdateTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -296,7 +297,7 @@
     } else {
         // required fields failed
         
-        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Error" message:@"Please fille out all required fields."];
+        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Error" message:@"Please fill out all required fields."];
         [alert applyCustomAlertAppearance];
         __weak AHAlertView *weakAlert = alert;
         [alert addButtonWithTitle:@"OK" block:^{

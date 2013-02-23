@@ -17,6 +17,9 @@
 @property (strong, nonatomic) IBOutlet SLGlowingTextField *membershipNumberTextField;
 @property (strong, nonatomic) IBOutlet SLGlowingTextField *nicknameTextField;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *teeSegment;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *genderSegment;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *handSegment;
+@property (strong, nonatomic) IBOutlet SLGlowingTextField *birthdateTextField;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
