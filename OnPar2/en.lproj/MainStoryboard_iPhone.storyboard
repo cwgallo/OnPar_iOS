@@ -844,6 +844,9 @@
                                             <segment title="Male"/>
                                             <segment title="Female"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="genderChanged:" destination="06t-Jo-L1P" eventType="valueChanged" id="B8E-6I-mgp"/>
+                                        </connections>
                                     </segmentedControl>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="*Handedness:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGF-V3-aVf">
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -858,6 +861,9 @@
                                             <segment title="Left"/>
                                             <segment title="Right"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="handChanged:" destination="06t-Jo-L1P" eventType="valueChanged" id="L0u-qZ-ii6"/>
+                                        </connections>
                                     </segmentedControl>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="mm/dd/yyyy" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IPw-uS-rVI" customClass="SLGlowingTextField">
                                         <constraints>
@@ -992,6 +998,8 @@
             <relationships>
                 <relationship kind="action" name="cancel:"/>
                 <relationship kind="action" name="done:"/>
+                <relationship kind="action" name="genderChanged:"/>
+                <relationship kind="action" name="handChanged:"/>
                 <relationship kind="action" name="teeChanged:"/>
                 <relationship kind="outlet" name="birthdateTextField" candidateClass="SLGlowingTextField"/>
                 <relationship kind="outlet" name="emailAddressTextField" candidateClass="SLGlowingTextField"/>

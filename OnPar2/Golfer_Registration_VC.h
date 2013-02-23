@@ -24,5 +24,8 @@
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
 - (IBAction)teeChanged:(id)sender;
+- (IBAction)handChanged:(id)sender;
+- (IBAction)genderChanged:(id)sender;
+
 
 @end

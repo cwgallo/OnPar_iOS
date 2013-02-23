@@ -15,6 +15,8 @@
 
 @implementation Golfer_Registration_VC{
     int tee;
+    int hand;
+    int gender;
 }
 
 @synthesize firstNameTextField, lastNameTextField;
@@ -57,12 +59,20 @@
     
     // initialize tee to AGGIES so 0 will not get passed in
     tee = AGGIES;
+    
+    // initialize handedness and gender
+    hand = 1;
+    gender = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     // initialize tee to AGGIES so 0 will not get passed in
     tee = AGGIES;
+    
+    // initialize handedness and gender
+    hand = 1;
+    gender = 0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -368,6 +378,44 @@
             default:
                 break;
         }
+}
+
+
+- (IBAction)handChanged:(id)sender {
+    
+    switch (self.handSegment.selectedSegmentIndex) {
+        case 0:
+            // left handed
+            hand = 0;
+            NSLog(@"left handed");
+            break;
+        case 1:
+            // right handed
+            hand = 1;
+            NSLog(@"right handed");
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (IBAction)genderChanged:(id)sender {
+    
+    switch (self.genderSegment.selectedSegmentIndex) {
+        case 0:
+            // male
+            gender = 0;
+            NSLog(@"male");
+            break;
+        case 1:
+            // female
+            gender = 1;
+            NSLog(@"female");
+            break;
+        default:
+            break;
+    }
 }
 
 @end
