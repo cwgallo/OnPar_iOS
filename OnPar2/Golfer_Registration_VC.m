@@ -63,7 +63,7 @@
     
     // since gender isn't required, initialize to nil
     hand = [NSNumber numberWithInt: RIGHT_HAND];
-    gender = nil;
+    gender = [NSNumber numberWithInt: MALE];
     
     HMSegmentedControl *teeSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Aggies", @"Maroons", @"Cowbells", @"Bulldogs"]];
     [teeSegment2 setFrame:CGRectMake(20, 389, 286, 30)];
@@ -120,7 +120,7 @@
     // initialize handedness and gender
     // since gender isn't required, initialize to nil
     hand = [NSNumber numberWithInt: RIGHT_HAND];
-    gender = nil;
+    gender = [NSNumber numberWithInt: MALE];
 }
 
 - (void)didReceiveMemoryWarning
@@ -229,14 +229,10 @@
                 
                 // figure out the gender
                 NSString *genderSelection;
-                if (gender == nil) {
-                    genderSelection = @"";
+                if ([gender isEqualToNumber: [NSNumber numberWithInt: FEMALE]]) {
+                    genderSelection = @"f";
                 } else {
-                    if ([gender isEqualToNumber: [NSNumber numberWithInt: FEMALE]]) {
-                        genderSelection = @"f";
-                    } else {
-                        genderSelection = @"m";
-                    }
+                    genderSelection = @"m";
                 }
                 
                 // figure out which hand they use
