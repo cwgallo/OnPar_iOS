@@ -632,6 +632,8 @@
     [myImageView setImage: image];
 }
 
+
+// Borrowed from: http://stackoverflow.com/questions/7313023/overlay-an-image-over-another-image-in-ios
 -(UIImage *) drawImage:(UIImage*) fgImage
               inImage:(UIImage*) bgImage
               atPoint:(CGPoint)  point
