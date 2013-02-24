@@ -12,7 +12,7 @@
 		2EAA462C16D27F1200B63CD4 /* Hole.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA462B16D27F1200B63CD4 /* Hole.m */; };
 		2EAA462F16D310BC00B63CD4 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA462E16D310BC00B63CD4 /* SystemInfo.m */; };
 		2EAA463116D4151C00B63CD4 /* hole18.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAA463016D4151C00B63CD4 /* hole18.png */; };
-		2EBBC8E616D991F700034C91 /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EBBC8E516D991F700034C91 /* reddot.png */; };
+		2EBBC8E816D99AF400034C91 /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EBBC8E716D99AF400034C91 /* reddot.png */; };
 		2EBF803A16D433A300369EB1 /* Finish_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF803916D433A300369EB1 /* Finish_VC.m */; };
 		B607C84216D9755000ACBE12 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B607C84116D9755000ACBE12 /* HMSegmentedControl.m */; };
 		B611325516CB0F670032AD4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B611325416CB0F670032AD4B /* UIKit.framework */; };
@@ -189,7 +189,7 @@
 		2EAA462D16D310BC00B63CD4 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
 		2EAA462E16D310BC00B63CD4 /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
 		2EAA463016D4151C00B63CD4 /* hole18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hole18.png; sourceTree = "<group>"; };
-		2EBBC8E516D991F700034C91 /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
+		2EBBC8E716D99AF400034C91 /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		2EBF803816D433A300369EB1 /* Finish_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finish_VC.h; sourceTree = "<group>"; };
 		2EBF803916D433A300369EB1 /* Finish_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Finish_VC.m; sourceTree = "<group>"; };
 		B607C84016D9755000ACBE12 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
@@ -771,7 +771,7 @@
 		B6A54C5616D08373002B0107 /* Icons, Logos */ = {
 			isa = PBXGroup;
 			children = (
-				2EBBC8E516D991F700034C91 /* reddot.png */,
+				2EBBC8E716D99AF400034C91 /* reddot.png */,
 				B6A54C5F16D083DB002B0107 /* icon@2x.png */,
 				B6A54C5D16D083D6002B0107 /* icon.png */,
 				B611336D16CDEBE40032AD4B /* logo2.png */,
@@ -944,7 +944,7 @@
 				B6A54C6316D08436002B0107 /* icon@2x.png in Resources */,
 				B6A54C7016D097EE002B0107 /* hole1.png in Resources */,
 				2EAA463116D4151C00B63CD4 /* hole18.png in Resources */,
-				2EBBC8E616D991F700034C91 /* reddot.png in Resources */,
+				2EBBC8E816D99AF400034C91 /* reddot.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
