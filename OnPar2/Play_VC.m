@@ -781,7 +781,7 @@
         NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
         
         UIImage *holeImage = [UIImage imageNamed:filename];
-        UIImage *redDot = [UIImage imageNamed: @"reddot.jpg"];
+        UIImage *redDot = [UIImage imageNamed: @"reddot.png"];
         
         UIImage *newImage = [self drawImage: redDot
                                     inImage: holeImage
