@@ -7,7 +7,6 @@
 //
 
 #import "Play_VC.h"
-#import "Config.h"
 #import "MainViewController.h" // needed for deleteEverything
 
 @interface Play_VC ()
@@ -159,8 +158,9 @@
     // don't hide the nav bar
     [NSTimer scheduledTimerWithTimeInterval:0.20 target:self selector:@selector(showNavBar) userInfo:nil repeats:NO];
     
-    // set the picture for the golfer
-    [self setHoleImageForUser: currentGolfer];
+    // get the picture for the golfer
+    UIImage *holeImage = [self getHoleImageForUser: currentGolfer];
+    [self displayImage: holeImage];
     
     // set the current Round, Hole, and Shot
     currentRound = [rounds objectForKey: currentGolfer.userID];
@@ -235,6 +235,7 @@
         finishButton.hidden = YES;
         doneButton.hidden = YES;
         skipButton.hidden = YES;
+        
         
         self.stageLabel.text = @"End shot";
         
@@ -612,14 +613,17 @@
 
 
 #pragma mark - helper functions
+- (void) displayImage: (UIImage *) image
+{
+    [myImageView setImage: image];
+}
 
-- (void)setHoleImageForUser: (User *)u
+- (UIImage *)getHoleImageForUser: (User *)u
 {
     NSNumber *hole = u.stageInfo.holeNumber;
     NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", hole, @".png"];
     
-    UIImage *image = [UIImage imageNamed:filename];
-    [myImageView setImage: image];
+    return [UIImage imageNamed:filename];
 }
 
 
@@ -694,13 +698,13 @@
     // set the User's curent shot aim lat/long
     if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_AIM]]) {
         // Get tap location within myImageView
-        CGPoint location = [recognizer locationInView:self.myImageView];
+        CGPoint aimLocation = [recognizer locationInView:self.myImageView];
         
         // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
-        location.x *= 2;
-        location.y *= 2;
+        aimLocation.x *= 2;
+        aimLocation.y *= 2;
         
-        XYPair *aim = [[XYPair alloc] initWithX:location.x andY:location.y];
+        XYPair *aim = [[XYPair alloc] initWithX:aimLocation.x andY:aimLocation.y];
         
         LLPair *llpair = [self calculateAimLLWithAimXY:aim];
         
@@ -728,7 +732,7 @@
         
         UIImage *newImage = [self drawImage: redDot
                                     inImage: holeImage
-                                    atPoint: location];
+                                    atPoint: aimLocation];
         
         [myImageView setImage: newImage];
         
@@ -742,13 +746,13 @@
     // set the User's curent shot aim lat/long
     if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_AIM]]) {
         // Get tap location within myImageView
-        CGPoint location = [recognizer locationInView:self.myImageView];
+        CGPoint aimLocation = [recognizer locationInView:self.myImageView];
         
         // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
-        location.x *= 2;
-        location.y *= 2;
+        aimLocation.x *= 2;
+        aimLocation.y *= 2;
         
-        XYPair *aim = [[XYPair alloc] initWithX:location.x andY:location.y];
+        XYPair *aim = [[XYPair alloc] initWithX:aimLocation.x andY:aimLocation.y];
         
         LLPair *llpair = [self calculateAimLLWithAimXY:aim];
         
@@ -776,7 +780,7 @@
         
         UIImage *newImage = [self drawImage: redDot
                                     inImage: holeImage
-                                    atPoint: location];
+                                    atPoint: aimLocation];
         
         [myImageView setImage: newImage];
         
@@ -791,7 +795,6 @@
     
     // retrieve known points for this hole
     
-    // TODO - these points are defined for hole 1 but should be found dynamically
     //NSLog(@"First Tee X: %@ \nFirst Tee Y: %@", currentHole.firstRefX, currentHole.firstRefY);
     XYPair *teeXY0 = [[XYPair alloc] initWithX: [currentHole.firstRefX doubleValue] andY: [currentHole.firstRefY doubleValue]];
     //NSLog(@"First Tee Lat: %@ \nFirst Tee Long: %@", currentHole.firstRefLat, currentHole.firstRefLong);
