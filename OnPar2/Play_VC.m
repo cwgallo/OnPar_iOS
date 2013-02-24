@@ -56,7 +56,7 @@
     
     // longPress gesture initializer
     UILongPressGestureRecognizer* gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    gesture.minimumPressDuration = 0.5;
+    gesture.minimumPressDuration = 0.1;
     gesture.numberOfTouchesRequired = 1;
     [myImageView addGestureRecognizer: gesture];
     
@@ -748,19 +748,19 @@
 
 - (IBAction)handleLongPress: (UIGestureRecognizer *)recognizer
 {
-    // Get tap location within myImageView
-    CGPoint location = [recognizer locationInView:self.myImageView];
-    
-    // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
-    location.x *= 2;
-    location.y *= 2;
-    
-    XYPair *aim = [[XYPair alloc] initWithX:location.x andY:location.y];
-    
-    LLPair *llpair = [self calculateAimLLWithAimXY:aim];
-    
     // set the User's curent shot aim lat/long
     if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_AIM]]) {
+        // Get tap location within myImageView
+        CGPoint location = [recognizer locationInView:self.myImageView];
+        
+        // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
+        location.x *= 2;
+        location.y *= 2;
+        
+        XYPair *aim = [[XYPair alloc] initWithX:location.x andY:location.y];
+        
+        LLPair *llpair = [self calculateAimLLWithAimXY:aim];
+        
         // set aim lat/long here
         currentShot.aimLatitude = [NSNumber numberWithDouble: llpair._lat];
         currentShot.aimLongitude = [NSNumber numberWithDouble: llpair._lon];
