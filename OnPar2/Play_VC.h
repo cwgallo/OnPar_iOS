@@ -67,5 +67,6 @@
 
 #pragma mark - Gesture
 - (IBAction)handleTap: (UIGestureRecognizer *)recognizer;
+- (IBAction)handleLongPress: (UIGestureRecognizer *)recognizer;
 
 @end

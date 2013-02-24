@@ -54,6 +54,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    // longPress gesture initializer
+    UILongPressGestureRecognizer* gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    gesture.minimumPressDuration = 0.5;
+    gesture.numberOfTouchesRequired = 1;
+    [myImageView addGestureRecognizer: gesture];
+    
     // Preparing Club Selection
     [self populateClubArrays];
     clubPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
@@ -153,19 +159,8 @@
     // don't hide the nav bar
     [NSTimer scheduledTimerWithTimeInterval:0.20 target:self selector:@selector(showNavBar) userInfo:nil repeats:NO];
     
-    //self.navigationController.navigationBarHidden = NO;
-    //[[[self navigationController] navigationBar] setHidden:NO];
-    
     // set the picture for the golfer
     [self setHoleImageForUser: currentGolfer];
-    
-    // check to see what hole the golfer is on
-    // if 18, hide the skip button
-    /*if ([currentGolfer.stageInfo.holeNumber isEqualToNumber: [NSNumber numberWithInt: 18]]) {
-        skipButton.hidden = YES;
-    } else {
-        skipButton.hidden = NO;
-    }*/
     
     // set the current Round, Hole, and Shot
     currentRound = [rounds objectForKey: currentGolfer.userID];
@@ -191,11 +186,6 @@
     self.parLabel.text = [NSString stringWithFormat: @"%@", currentHole.par];
     self.holeLabel.text = [NSString stringWithFormat: @"%@", currentHole.holeNumber];
     self.holeDistanceLabel.text = [NSString stringWithFormat: @"%@", currentHole.distance];
-    
-    //NSLog(@"CURRENT GOLFER: %@", currentGolfer);
-    //NSLog(@"CURRENT ROUND: %@", currentRound);
-    //NSLog(@"CURRENT HOLE: %@", currentHole);
-    //NSLog(@"CURRENT SHOT: %@", currentShot);
     
     if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_START]]) {
         NSLog(@"Stage START for golfer: %@", currentGolfer.name);
@@ -753,6 +743,54 @@
             weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
         }];
         [alert show];
+    }
+}
+
+- (IBAction)handleLongPress: (UIGestureRecognizer *)recognizer
+{
+    // Get tap location within myImageView
+    CGPoint location = [recognizer locationInView:self.myImageView];
+    
+    // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
+    location.x *= 2;
+    location.y *= 2;
+    
+    XYPair *aim = [[XYPair alloc] initWithX:location.x andY:location.y];
+    
+    LLPair *llpair = [self calculateAimLLWithAimXY:aim];
+    
+    // set the User's curent shot aim lat/long
+    if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_AIM]]) {
+        // set aim lat/long here
+        currentShot.aimLatitude = [NSNumber numberWithDouble: llpair._lat];
+        currentShot.aimLongitude = [NSNumber numberWithDouble: llpair._lon];
+        
+        //NSLog(@"Shot lat: %@", currentShot.aimLatitude);
+        //NSLog(@"Shot long: %@", currentShot.aimLongitude);
+        
+        // save the club selection and user's stage to the DB
+        id appDelegate = (id)[[UIApplication sharedApplication] delegate];
+        
+        NSError *error;
+        
+        if (![[appDelegate managedObjectContext] save: &error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        
+        // redraw the picture
+        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
+        
+        UIImage *holeImage = [UIImage imageNamed:filename];
+        UIImage *redDot = [UIImage imageNamed: @"reddot.jpg"];
+        
+        UIImage *newImage = [self drawImage: redDot
+                                    inImage: holeImage
+                                    atPoint: location];
+        
+        [myImageView setImage: newImage];
+        
+        // instead of transitioning, show the done button
+        self.doneButton.hidden = NO;
     }
 }
 
