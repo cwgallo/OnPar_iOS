@@ -675,7 +675,6 @@
     
     // current location
     // TODO - do reverse geometry to find the pixel value of the current location
-    NSLog(@"SHOT NUMBER: %@", currentGolfer.stageInfo.shotNumber);
     if ([currentGolfer.stageInfo.shotNumber isEqualToNumber: [NSNumber numberWithInt: 1]]) {
         CGContextMoveToPoint(ctx, point.x, point.y);
         CGPoint teePoint = CGPointMake([currentHole.firstRefX floatValue], [currentHole.firstRefY floatValue]);
@@ -688,7 +687,13 @@
     //NSLog(@"POINT: %.0f, %.0f", point.x, point.y);
     //NSLog(@"SHOT DISTANCE POINT: %.0f, %.0f", point.x + 10, point.y + 10);
     //self.lblShotDistance.center = CGPointMake(point.x - 10, point.y - 10];
-    self.lblToGreenDistance.center = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
+    
+    //CGPoint bgGreenPoint = CGPointMake(point.x, point.y);
+    //NSLog(@"BG POINT: %.0f, %.0f", bgGreenPoint.x, bgGreenPoint.y);
+    //CGPoint fgGreenPoint = [[self.lblToGreenDistance superview] convertPoint: bgGreenPoint fromView: self.myImageView];
+    //NSLog(@"FG POINT: %.0f, %.0f", fgGreenPoint.x, fgGreenPoint.y);
+    //self.lblToGreenDistance.center = bgGreenPoint;
+    //[self.lblToGreenDistance drawTextInRect: CGRectMake(point.x, point.y, fgImage.size.width, fgImage.size.height)];
     
     // these lines have to be the last three lines in the function
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
