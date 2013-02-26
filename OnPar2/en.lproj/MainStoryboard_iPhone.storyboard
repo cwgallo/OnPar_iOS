@@ -700,6 +700,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="lblFIR" destination="Uvo-rV-0SU" id="ZTL-F2-1hy"/>
                         <outlet property="lblPutts" destination="lNA-ex-P2v" id="BcO-qJ-35i"/>
                         <outlet property="lblScore" destination="1uP-bm-VdW" id="OZ9-MK-H8i"/>
                         <outlet property="stepPutts" destination="i4g-0B-XEM" id="qRZ-SD-lgZ"/>

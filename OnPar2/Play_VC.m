@@ -322,6 +322,9 @@
         currentShot = nil;
     }
     
+    // reset the shot number to 1
+    currentGolfer.stageInfo.shotNumber = [NSNumber numberWithInt: 1];
+    
     //NSLog(@"CURRENT SHOT: %@", currentShot);
     //NSLog(@"CURRENT HOLE: %@", currentHole);
     
@@ -659,6 +662,8 @@
     [bgImage drawInRect:CGRectMake( 0, 0, bgImage.size.width, bgImage.size.height)];
     [fgImage drawInRect:CGRectMake( point.x - 10, point.y - 10, fgImage.size.width, fgImage.size.height)];
     
+    // draw lines from starting location to aim
+    // and from aim to center of green
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
     CGContextSetLineWidth(ctx, 2.0);
@@ -668,10 +673,14 @@
     CGPoint greenCenter = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
     CGContextAddLineToPoint(ctx, greenCenter.x, greenCenter.y);
     
-    // tee point
-    CGContextMoveToPoint(ctx, point.x, point.y);
-    CGPoint teePoint = CGPointMake([currentHole.firstRefX floatValue], [currentHole.firstRefY floatValue]);
-    CGContextAddLineToPoint(ctx, teePoint.x, teePoint.y);
+    // current location
+    // TODO - do reverse geometry to find the pixel value of the current location
+    NSLog(@"SHOT NUMBER: %@", currentGolfer.stageInfo.shotNumber);
+    if ([currentGolfer.stageInfo.shotNumber isEqualToNumber: [NSNumber numberWithInt: 1]]) {
+        CGContextMoveToPoint(ctx, point.x, point.y);
+        CGPoint teePoint = CGPointMake([currentHole.firstRefX floatValue], [currentHole.firstRefY floatValue]);
+        CGContextAddLineToPoint(ctx, teePoint.x, teePoint.y);
+    }
     
     CGContextStrokePath(ctx);
     
@@ -679,9 +688,7 @@
     //NSLog(@"POINT: %.0f, %.0f", point.x, point.y);
     //NSLog(@"SHOT DISTANCE POINT: %.0f, %.0f", point.x + 10, point.y + 10);
     //self.lblShotDistance.center = CGPointMake(point.x - 10, point.y - 10];
-    
-    // draw lines from starting location to aim
-    // and from aim to center of green
+    self.lblToGreenDistance.center = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
     
     // these lines have to be the last three lines in the function
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();

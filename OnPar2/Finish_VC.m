@@ -22,7 +22,7 @@
 
 @implementation Finish_VC
 
-@synthesize lblPutts, lblScore, stepPutts, stepScore, switchFIR;
+@synthesize lblPutts, lblScore, lblFIR, stepPutts, stepScore, switchFIR;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -88,6 +88,16 @@
         }
     }
     
+    // there is no such thing as a fairway in reg on par threes
+    // so hide the switcher and label on par threes
+    if ([currentHole.par isEqualToNumber: [NSNumber numberWithInt: 3]]) {
+        self.lblFIR.hidden = YES;
+        self.switchFIR.hidden = YES;
+    } else {
+        self.lblFIR.hidden = NO;
+        self.switchFIR.hidden = NO;
+    }
+    
     [self stepperInit];
     
     self.lblScore.text = [NSString stringWithFormat: @"%.f", self.stepScore.value];
@@ -115,7 +125,11 @@
         currentHole.green_in_reg = [NSNumber numberWithBool: NO];
     }
     
-    currentHole.fairway_in_reg = [NSNumber numberWithBool: self.switchFIR.isOn];
+    if ([currentHole.par isEqualToNumber: [NSNumber numberWithInt: 3]]) {
+        currentHole.fairway_in_reg = nil;
+    } else {
+        currentHole.fairway_in_reg = [NSNumber numberWithBool: self.switchFIR.isOn];
+    }
     
     id appDelegate = (id)[[UIApplication sharedApplication] delegate];
      
@@ -129,6 +143,9 @@
         currentGolfer.stageInfo.stage = [NSNumber numberWithInt: STAGE_START];
         currentGolfer.stageInfo.holeNumber = [NSNumber numberWithInt: 1];
     }
+    
+    // reset the shot number to 1
+    currentGolfer.stageInfo.shotNumber = [NSNumber numberWithInt: 1];
     
     //NSLog(@"CURRENT HOLE: %@", currentHole);
      
