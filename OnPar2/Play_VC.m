@@ -32,7 +32,8 @@
 @synthesize myImageView, myScrollView, navBar, txtClub;
 @synthesize startButton, endButton, finishButton, skipButton, doneButton;
 @synthesize clubType, woodNum, hybridNum, ironNum, wedgeType;
-@synthesize holeLabel, parLabel, stageLabel, distanceToGreeLabel, holeDistanceLabel;
+@synthesize holeLabel, parLabel, stageLabel, distanceToGreeLabel, holeDistanceLabel;\
+@synthesize lblShotDistance, lblToGreenDistance;
 
 @synthesize locationMgr = _locationMgr;
 @synthesize lastLocation = _lastLocation;
@@ -196,6 +197,10 @@
         doneButton.hidden = YES;
         skipButton.hidden = NO;
         
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
+        
         self.stageLabel.text = @"Start shot";
         
     } else if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_CLUB_SELECT]]) {
@@ -207,6 +212,10 @@
         finishButton.hidden = YES;
         doneButton.hidden = YES;
         skipButton.hidden = YES;
+        
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
         
         self.stageLabel.text = @"Select club";
         
@@ -220,6 +229,12 @@
         startButton.hidden = YES;
         finishButton.hidden = YES;
         skipButton.hidden = YES;
+        
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = NO;
+        lblShotDistance.hidden = NO;
+        lblShotDistance.text = @"";
+        lblToGreenDistance.text = @"";
         
         // hide the done button until there has been an aim made
         // the button will be shown in the aim function
@@ -236,6 +251,10 @@
         doneButton.hidden = YES;
         skipButton.hidden = YES;
         
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
+        
         
         self.stageLabel.text = @"End shot";
         
@@ -248,6 +267,10 @@
         skipButton.hidden = YES;
         finishButton.hidden = YES;
         doneButton.hidden = YES;
+        
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
         
         self.stageLabel.text = @"Finished";
     }
@@ -612,7 +635,7 @@
 }
 
 
-#pragma mark - helper functions
+#pragma mark - image functions
 - (void) displayImage: (UIImage *) image
 {
     [myImageView setImage: image];
@@ -635,6 +658,32 @@
     UIGraphicsBeginImageContextWithOptions(bgImage.size, FALSE, 0.0);
     [bgImage drawInRect:CGRectMake( 0, 0, bgImage.size.width, bgImage.size.height)];
     [fgImage drawInRect:CGRectMake( point.x - 10, point.y - 10, fgImage.size.width, fgImage.size.height)];
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
+    CGContextSetLineWidth(ctx, 2.0);
+    
+    // center of green point
+    CGContextMoveToPoint(ctx, point.x, point.y);
+    CGPoint greenCenter = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
+    CGContextAddLineToPoint(ctx, greenCenter.x, greenCenter.y);
+    
+    // tee point
+    CGContextMoveToPoint(ctx, point.x, point.y);
+    CGPoint teePoint = CGPointMake([currentHole.firstRefX floatValue], [currentHole.firstRefY floatValue]);
+    CGContextAddLineToPoint(ctx, teePoint.x, teePoint.y);
+    
+    CGContextStrokePath(ctx);
+    
+    // recenter labels to be above and below the reddot
+    //NSLog(@"POINT: %.0f, %.0f", point.x, point.y);
+    //NSLog(@"SHOT DISTANCE POINT: %.0f, %.0f", point.x + 10, point.y + 10);
+    //self.lblShotDistance.center = CGPointMake(point.x - 10, point.y - 10];
+    
+    // draw lines from starting location to aim
+    // and from aim to center of green
+    
+    // these lines have to be the last three lines in the function
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -724,6 +773,26 @@
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         
+        // update the shot labels
+        // shot distance is distance from current position to aim position
+        // to green distance is distance from aim location to center of the green location
+        CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
+        
+        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
+        
+        if (shotDistance > 999.00f) {
+            lblShotDistance.text = @">999";
+        } else {
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance];
+        }
+        
+        if (approachDistance > 999.00f) {
+            lblToGreenDistance.text = @">999";
+        } else {
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance];
+        }
+        
         // redraw the picture
         NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
         
@@ -755,7 +824,7 @@
         XYPair *aim = [[XYPair alloc] initWithX:aimLocation.x andY:aimLocation.y];
         
         LLPair *llpair = [self calculateAimLLWithAimXY:aim];
-        
+
         // set aim lat/long here
         currentShot.aimLatitude = [NSNumber numberWithDouble: llpair._lat];
         currentShot.aimLongitude = [NSNumber numberWithDouble: llpair._lon];
@@ -770,6 +839,26 @@
         
         if (![[appDelegate managedObjectContext] save: &error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        
+        // update the shot labels
+        // shot distance is distance from current position to aim position
+        // to green distance is distance from aim location to center of the green location
+        CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
+        
+        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
+        
+        if (shotDistance > 999.00f) {
+            lblShotDistance.text = @">999";
+        } else {
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance];
+        }
+        
+        if (approachDistance > 999.00f) {
+            lblToGreenDistance.text = @">999";
+        } else {
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance];
         }
         
         // redraw the picture
