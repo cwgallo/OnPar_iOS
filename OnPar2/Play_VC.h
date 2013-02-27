@@ -37,6 +37,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceToGreeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *holeDistanceLabel;
 
+#pragma mark - Distance labels
+@property (weak, nonatomic) IBOutlet UILabel *lblShotDistance;
+@property (weak, nonatomic) IBOutlet UILabel *lblToGreenDistance;
+
+
 #pragma mark - Core Location
 
 @property (nonatomic, retain) CLLocationManager *locationMgr;
@@ -67,5 +72,6 @@
 
 #pragma mark - Gesture
 - (IBAction)handleTap: (UIGestureRecognizer *)recognizer;
+- (IBAction)handleLongPress: (UIGestureRecognizer *)recognizer;
 
 @end

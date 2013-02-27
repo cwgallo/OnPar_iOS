@@ -7,7 +7,6 @@
 //
 
 #import "Play_VC.h"
-#import "Config.h"
 #import "MainViewController.h" // needed for deleteEverything
 
 @interface Play_VC ()
@@ -33,7 +32,8 @@
 @synthesize myImageView, myScrollView, navBar, txtClub;
 @synthesize startButton, endButton, finishButton, skipButton, doneButton;
 @synthesize clubType, woodNum, hybridNum, ironNum, wedgeType;
-@synthesize holeLabel, parLabel, stageLabel, distanceToGreeLabel, holeDistanceLabel;
+@synthesize holeLabel, parLabel, stageLabel, distanceToGreeLabel, holeDistanceLabel;\
+@synthesize lblShotDistance, lblToGreenDistance;
 
 @synthesize locationMgr = _locationMgr;
 @synthesize lastLocation = _lastLocation;
@@ -53,6 +53,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    // longPress gesture initializer
+    UILongPressGestureRecognizer* gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    gesture.minimumPressDuration = 0.1;
+    gesture.numberOfTouchesRequired = 1;
+    [myImageView addGestureRecognizer: gesture];
     
     // Preparing Club Selection
     [self populateClubArrays];
@@ -153,19 +159,9 @@
     // don't hide the nav bar
     [NSTimer scheduledTimerWithTimeInterval:0.20 target:self selector:@selector(showNavBar) userInfo:nil repeats:NO];
     
-//    self.navigationController.navigationBarHidden = NO;
-    //[[[self navigationController] navigationBar] setHidden:NO];
-    
-    // set the picture for the golfer
-    [self setHoleImageForUser: currentGolfer];
-    
-    // check to see what hole the golfer is on
-    // if 18, hide the skip button
-    /*if ([currentGolfer.stageInfo.holeNumber isEqualToNumber: [NSNumber numberWithInt: 18]]) {
-        skipButton.hidden = YES;
-    } else {
-        skipButton.hidden = NO;
-    }*/
+    // get the picture for the golfer
+    UIImage *holeImage = [self getHoleImageForUser: currentGolfer];
+    [self displayImage: holeImage];
     
     // set the current Round, Hole, and Shot
     currentRound = [rounds objectForKey: currentGolfer.userID];
@@ -192,11 +188,6 @@
     self.holeLabel.text = [NSString stringWithFormat: @"%@", currentHole.holeNumber];
     self.holeDistanceLabel.text = [NSString stringWithFormat: @"%@", currentHole.distance];
     
-    //NSLog(@"CURRENT GOLFER: %@", currentGolfer);
-    //NSLog(@"CURRENT ROUND: %@", currentRound);
-    //NSLog(@"CURRENT HOLE: %@", currentHole);
-    //NSLog(@"CURRENT SHOT: %@", currentShot);
-    
     if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_START]]) {
         NSLog(@"Stage START for golfer: %@", currentGolfer.name);
         // hide end button and show start
@@ -205,6 +196,10 @@
         finishButton.hidden = NO;
         doneButton.hidden = YES;
         skipButton.hidden = NO;
+        
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
         
         self.stageLabel.text = @"Start shot";
         
@@ -218,6 +213,10 @@
         doneButton.hidden = YES;
         skipButton.hidden = YES;
         
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
+        
         self.stageLabel.text = @"Select club";
         
         // manually call club select function
@@ -230,6 +229,12 @@
         startButton.hidden = YES;
         finishButton.hidden = YES;
         skipButton.hidden = YES;
+        
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = NO;
+        lblShotDistance.hidden = NO;
+        lblShotDistance.text = @"";
+        lblToGreenDistance.text = @"";
         
         // hide the done button until there has been an aim made
         // the button will be shown in the aim function
@@ -246,6 +251,11 @@
         doneButton.hidden = YES;
         skipButton.hidden = YES;
         
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
+        
+        
         self.stageLabel.text = @"End shot";
         
     } else {
@@ -257,6 +267,10 @@
         skipButton.hidden = YES;
         finishButton.hidden = YES;
         doneButton.hidden = YES;
+        
+        // only show these two labels in the aim stage
+        lblToGreenDistance.hidden = YES;
+        lblShotDistance.hidden = YES;
         
         self.stageLabel.text = @"Finished";
     }
@@ -307,6 +321,9 @@
         [[appDelegate managedObjectContext] deleteObject: currentShot];
         currentShot = nil;
     }
+    
+    // reset the shot number to 1
+    currentGolfer.stageInfo.shotNumber = [NSNumber numberWithInt: 1];
     
     //NSLog(@"CURRENT SHOT: %@", currentShot);
     //NSLog(@"CURRENT HOLE: %@", currentHole);
@@ -621,15 +638,68 @@
 }
 
 
-#pragma mark - helper functions
+#pragma mark - image functions
+- (void) displayImage: (UIImage *) image
+{
+    [myImageView setImage: image];
+}
 
-- (void)setHoleImageForUser: (User *)u
+- (UIImage *)getHoleImageForUser: (User *)u
 {
     NSNumber *hole = u.stageInfo.holeNumber;
     NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", hole, @".png"];
     
-    UIImage *image = [UIImage imageNamed:filename];
-    [myImageView setImage: image];
+    return [UIImage imageNamed:filename];
+}
+
+
+// Borrowed from: http://stackoverflow.com/questions/7313023/overlay-an-image-over-another-image-in-ios
+-(UIImage *) drawImage:(UIImage*) fgImage
+              inImage:(UIImage*) bgImage
+              atPoint:(CGPoint)  point
+{
+    UIGraphicsBeginImageContextWithOptions(bgImage.size, FALSE, 0.0);
+    [bgImage drawInRect:CGRectMake( 0, 0, bgImage.size.width, bgImage.size.height)];
+    [fgImage drawInRect:CGRectMake( point.x - 10, point.y - 10, fgImage.size.width, fgImage.size.height)];
+    
+    // draw lines from starting location to aim
+    // and from aim to center of green
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
+    CGContextSetLineWidth(ctx, 2.0);
+    
+    // center of green point
+    CGContextMoveToPoint(ctx, point.x, point.y);
+    CGPoint greenCenter = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
+    CGContextAddLineToPoint(ctx, greenCenter.x, greenCenter.y);
+    
+    // current location
+    // TODO - do reverse geometry to find the pixel value of the current location
+    if ([currentGolfer.stageInfo.shotNumber isEqualToNumber: [NSNumber numberWithInt: 1]]) {
+        CGContextMoveToPoint(ctx, point.x, point.y);
+        CGPoint teePoint = CGPointMake([currentHole.firstRefX floatValue], [currentHole.firstRefY floatValue]);
+        CGContextAddLineToPoint(ctx, teePoint.x, teePoint.y);
+    }
+    
+    CGContextStrokePath(ctx);
+    
+    // recenter labels to be above and below the reddot
+    //NSLog(@"POINT: %.0f, %.0f", point.x, point.y);
+    //NSLog(@"SHOT DISTANCE POINT: %.0f, %.0f", point.x + 10, point.y + 10);
+    //self.lblShotDistance.center = CGPointMake(point.x - 10, point.y - 10];
+    
+    //CGPoint bgGreenPoint = CGPointMake(point.x, point.y);
+    //NSLog(@"BG POINT: %.0f, %.0f", bgGreenPoint.x, bgGreenPoint.y);
+    //CGPoint fgGreenPoint = [[self.lblToGreenDistance superview] convertPoint: bgGreenPoint fromView: self.myImageView];
+    //NSLog(@"FG POINT: %.0f, %.0f", fgGreenPoint.x, fgGreenPoint.y);
+    //self.lblToGreenDistance.center = bgGreenPoint;
+    //[self.lblToGreenDistance drawTextInRect: CGRectMake(point.x, point.y, fgImage.size.width, fgImage.size.height)];
+    
+    // these lines have to be the last three lines in the function
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 
@@ -686,19 +756,19 @@
 
 - (IBAction)handleTap: (UIGestureRecognizer *)recognizer
 {
-    // Get tap location within myImageView
-    CGPoint location = [recognizer locationInView:self.myImageView];
-    
-    // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
-    location.x *= 2;
-    location.y *= 2;
-    
-    XYPair *aim = [[XYPair alloc] initWithX:location.x andY:location.y];
-    
-    LLPair *llpair = [self calculateAimLLWithAimXY:aim];
-    
     // set the User's curent shot aim lat/long
     if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_AIM]]) {
+        // Get tap location within myImageView
+        CGPoint aimLocation = [recognizer locationInView:self.myImageView];
+        
+        // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
+        aimLocation.x *= 2;
+        aimLocation.y *= 2;
+        
+        XYPair *aim = [[XYPair alloc] initWithX:aimLocation.x andY:aimLocation.y];
+        
+        LLPair *llpair = [self calculateAimLLWithAimXY:aim];
+        
         // set aim lat/long here
         currentShot.aimLatitude = [NSNumber numberWithDouble: llpair._lat];
         currentShot.aimLongitude = [NSNumber numberWithDouble: llpair._lon];
@@ -715,17 +785,108 @@
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         
+        // update the shot labels
+        // shot distance is distance from current position to aim position
+        // to green distance is distance from aim location to center of the green location
+        CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
+        
+        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
+        
+        if (shotDistance > 999.00f) {
+            lblShotDistance.text = @">999";
+        } else {
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance];
+        }
+        
+        if (approachDistance > 999.00f) {
+            lblToGreenDistance.text = @">999";
+        } else {
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance];
+        }
+        
+        // redraw the picture
+        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
+        
+        UIImage *holeImage = [UIImage imageNamed:filename];
+        UIImage *redDot = [UIImage imageNamed: @"reddot.png"];
+        
+        UIImage *newImage = [self drawImage: redDot
+                                    inImage: holeImage
+                                    atPoint: aimLocation];
+        
+        [myImageView setImage: newImage];
+        
         // instead of transitioning, show the done button
         self.doneButton.hidden = NO;
-    } else {
-        // tell the User to start the shot before aiming
-        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Error" message:@"You must start the shot before aiming."];
-        [alert applyCustomAlertAppearance];
-        __weak AHAlertView *weakAlert = alert;
-        [alert addButtonWithTitle:@"OK" block:^{
-            weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
-        }];
-        [alert show];
+    }
+}
+
+- (IBAction)handleLongPress: (UIGestureRecognizer *)recognizer
+{
+    // set the User's curent shot aim lat/long
+    if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_AIM]]) {
+        // Get tap location within myImageView
+        CGPoint aimLocation = [recognizer locationInView:self.myImageView];
+        
+        // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
+        aimLocation.x *= 2;
+        aimLocation.y *= 2;
+        
+        XYPair *aim = [[XYPair alloc] initWithX:aimLocation.x andY:aimLocation.y];
+        
+        LLPair *llpair = [self calculateAimLLWithAimXY:aim];
+
+        // set aim lat/long here
+        currentShot.aimLatitude = [NSNumber numberWithDouble: llpair._lat];
+        currentShot.aimLongitude = [NSNumber numberWithDouble: llpair._lon];
+        
+        //NSLog(@"Shot lat: %@", currentShot.aimLatitude);
+        //NSLog(@"Shot long: %@", currentShot.aimLongitude);
+        
+        // save the club selection and user's stage to the DB
+        id appDelegate = (id)[[UIApplication sharedApplication] delegate];
+        
+        NSError *error;
+        
+        if (![[appDelegate managedObjectContext] save: &error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        
+        // update the shot labels
+        // shot distance is distance from current position to aim position
+        // to green distance is distance from aim location to center of the green location
+        CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
+        
+        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
+        
+        if (shotDistance > 999.00f) {
+            lblShotDistance.text = @">999";
+        } else {
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance];
+        }
+        
+        if (approachDistance > 999.00f) {
+            lblToGreenDistance.text = @">999";
+        } else {
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance];
+        }
+        
+        // redraw the picture
+        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
+        
+        UIImage *holeImage = [UIImage imageNamed:filename];
+        UIImage *redDot = [UIImage imageNamed: @"reddot.png"];
+        
+        UIImage *newImage = [self drawImage: redDot
+                                    inImage: holeImage
+                                    atPoint: aimLocation];
+        
+        [myImageView setImage: newImage];
+        
+        // instead of transitioning, show the done button
+        self.doneButton.hidden = NO;
     }
 }
 
@@ -735,7 +896,6 @@
     
     // retrieve known points for this hole
     
-    // TODO - these points are defined for hole 1 but should be found dynamically
     //NSLog(@"First Tee X: %@ \nFirst Tee Y: %@", currentHole.firstRefX, currentHole.firstRefY);
     XYPair *teeXY0 = [[XYPair alloc] initWithX: [currentHole.firstRefX doubleValue] andY: [currentHole.firstRefY doubleValue]];
     //NSLog(@"First Tee Lat: %@ \nFirst Tee Long: %@", currentHole.firstRefLat, currentHole.firstRefLong);

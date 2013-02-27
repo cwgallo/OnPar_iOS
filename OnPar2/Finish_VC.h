@@ -12,6 +12,7 @@
 @interface Finish_VC : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *lblScore;
 @property (weak, nonatomic) IBOutlet UILabel *lblPutts;
+@property (weak, nonatomic) IBOutlet UILabel *lblFIR;
 @property (weak, nonatomic) IBOutlet UIStepper *stepScore;
 @property (weak, nonatomic) IBOutlet UIStepper *stepPutts;
 @property (weak, nonatomic) IBOutlet UISwitch *switchFIR;
