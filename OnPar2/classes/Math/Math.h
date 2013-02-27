@@ -9,7 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "LLPair.h"
 #import "XYPair.h"
+#import "SinCosPair.h"
 
 @interface Math : NSObject
+
+- (id)init;
+
+- (LLPair *)getLatLonFromSelectedXY: (XYPair*)selectedXY FromImageView: (UIImageView*)imageView OnHole: (Hole*)currentHole;
 
 @end

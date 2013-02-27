@@ -169,6 +169,7 @@
 		B6E241B216D03FB900D9CA97 /* ZFloatingRepresentative.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E241A416D03FB900D9CA97 /* ZFloatingRepresentative.m */; };
 		B6E241B316D03FB900D9CA97 /* ZPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E241A616D03FB900D9CA97 /* ZPopoverController.m */; };
 		B6E241B416D03FB900D9CA97 /* ZPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E241A616D03FB900D9CA97 /* ZPopoverController.m */; };
+		B6EFB91E16DDB5D8000971E3 /* SinCosPair.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFB91D16DDB5D7000971E3 /* SinCosPair.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -384,6 +385,8 @@
 		B6E241A416D03FB900D9CA97 /* ZFloatingRepresentative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFloatingRepresentative.m; sourceTree = "<group>"; };
 		B6E241A516D03FB900D9CA97 /* ZPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPopoverController.h; sourceTree = "<group>"; };
 		B6E241A616D03FB900D9CA97 /* ZPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPopoverController.m; sourceTree = "<group>"; };
+		B6EFB91C16DDB5D7000971E3 /* SinCosPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinCosPair.h; sourceTree = "<group>"; };
+		B6EFB91D16DDB5D7000971E3 /* SinCosPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinCosPair.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -662,6 +665,8 @@
 				B611331216CD92B90032AD4B /* XYPair.m */,
 				B6A54C6516D091DF002B0107 /* Math.h */,
 				B6A54C6616D091DF002B0107 /* Math.m */,
+				B6EFB91C16DDB5D7000971E3 /* SinCosPair.h */,
+				B6EFB91D16DDB5D7000971E3 /* SinCosPair.m */,
 			);
 			path = Math;
 			sourceTree = "<group>";
@@ -1076,6 +1081,7 @@
 				2EAA462F16D310BC00B63CD4 /* SystemInfo.m in Sources */,
 				2EBF803A16D433A300369EB1 /* Finish_VC.m in Sources */,
 				B607C84216D9755000ACBE12 /* HMSegmentedControl.m in Sources */,
+				B6EFB91E16DDB5D8000971E3 /* SinCosPair.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

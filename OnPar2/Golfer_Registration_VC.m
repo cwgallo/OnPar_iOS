@@ -25,7 +25,7 @@
 @synthesize nicknameTextField;
 @synthesize handSegment,teeSegment, genderSegment;
 @synthesize birthdateTextField;
-@synthesize scrollView;
+@synthesize scrollView, registrationView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,7 +66,7 @@
     gender = [NSNumber numberWithInt: MALE];
     
     HMSegmentedControl *teeSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Aggies", @"Maroons", @"Cowbells", @"Bulldogs"]];
-    [teeSegment2 setFrame:CGRectMake(20, 389, 286, 30)];
+    [teeSegment2 setFrame:CGRectMake(20, 388, 286, 30)];
     [teeSegment2 setIndexChangeBlock:^(NSInteger index) {
         [self teeChanged2:index];
     }];
@@ -78,11 +78,11 @@
     [teeSegment2 setSelectedSegmentIndex:0];
     [teeSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
     [teeSegment2 setTag:1];
-    [self.scrollView addSubview:teeSegment2];
+    [self.registrationView addSubview:teeSegment2];
 
     
     HMSegmentedControl *handSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Left", @"Right"]];
-    [handSegment2 setFrame:CGRectMake(168, 318, 136, 30)];
+    [handSegment2 setFrame:CGRectMake(168, 317, 136, 30)];
     [handSegment2 setIndexChangeBlock:^(NSInteger index) {
         [self handChanged2:index];
     }];
@@ -94,10 +94,10 @@
     [handSegment2 setSelectedSegmentIndex:1];
     [handSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
     [handSegment2 setTag:2];
-    [self.scrollView addSubview:handSegment2];
+    [self.registrationView addSubview:handSegment2];
     
     HMSegmentedControl *genderSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Male", @"Female"]];
-    [genderSegment2 setFrame:CGRectMake(18, 318, 136, 30)];
+    [genderSegment2 setFrame:CGRectMake(18, 317, 136, 30)];
     [genderSegment2 setIndexChangeBlock:^(NSInteger index) {
         [self genderChanged2:index];
     }];
@@ -109,7 +109,9 @@
     [genderSegment2 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
     [genderSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
     [genderSegment2 setTag:3];
-    [self.scrollView addSubview:genderSegment2];
+    [self.registrationView addSubview:genderSegment2];
+    
+    [scrollView setContentSize: CGSizeMake(320, 1000)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
