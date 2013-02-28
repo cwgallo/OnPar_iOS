@@ -773,6 +773,17 @@
         Math *math = [[Math alloc] init];
         LLPair *llpair = [math getLatLonFromSelectedXY:aim FromImageView:myImageView OnHole:currentHole];
         
+        // FOR TESTING
+        XYPair *xypair = [math getXYFromSelectedLatLon:llpair InImageView:myImageView OnHole:currentHole];
+        
+        NSLog(@"TESTING OF NEW FUNCTION");
+        NSLog(@"ORIGINAL XY: %@", aim);
+        NSLog(@"DERIVED GPS: %@", llpair);
+        NSLog(@"DERIVED XY:  %@", xypair);
+        
+        // END TESTING
+
+        
         // set aim lat/long here
         currentShot.aimLatitude = [NSNumber numberWithDouble: llpair._lat];
         currentShot.aimLongitude = [NSNumber numberWithDouble: llpair._lon];
@@ -843,6 +854,16 @@
 
         Math *math = [[Math alloc] init];
         LLPair *llpair = [math getLatLonFromSelectedXY:aim FromImageView:myImageView OnHole:currentHole];
+        
+        // FOR TESTING
+        XYPair *xypair = [math getXYFromSelectedLatLon:llpair InImageView:myImageView OnHole:currentHole];
+        
+        NSLog(@"TESTING OF NEW FUNCTION");
+        NSLog(@"ORIGINAL XY: %@", aim);
+        NSLog(@"DERIVED GPS: %@", llpair);
+        NSLog(@"DERIVED XY:  %@", xypair);
+        
+        // END TESTING
         
         // set aim lat/long here
         currentShot.aimLatitude = [NSNumber numberWithDouble: llpair._lat];

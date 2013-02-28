@@ -17,4 +17,6 @@
 
 - (LLPair *)getLatLonFromSelectedXY: (XYPair*)selectedXY FromImageView: (UIImageView*)imageView OnHole: (Hole*)currentHole;
 
+- (XYPair *)getXYFromSelectedLatLon: (LLPair*)selectedLatLon InImageView: (UIImageView*)imageView OnHole:(Hole*)currentHole;
+
 @end
