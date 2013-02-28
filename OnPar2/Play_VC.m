@@ -676,11 +676,17 @@
     
     // current location
     // TODO - do reverse geometry to find the pixel value of the current location
-    if ([currentGolfer.stageInfo.shotNumber isEqualToNumber: [NSNumber numberWithInt: 1]]) {
-        CGContextMoveToPoint(ctx, point.x, point.y);
-        CGPoint teePoint = CGPointMake([currentHole.firstRefX floatValue], [currentHole.firstRefY floatValue]);
-        CGContextAddLineToPoint(ctx, teePoint.x, teePoint.y);
-    }
+    LLPair *currentLatLong = [[LLPair alloc] initWithLat: self.lastLocation.coordinate.latitude  andLon: self.lastLocation.coordinate.longitude];
+    
+    Math *m = [[Math alloc] init];
+    
+    XYPair *currentXY = [m getXYFromSelectedLatLon: currentLatLong InImageView: self.myImageView OnHole: currentHole];
+    
+    CGPoint currentCGPoint = CGPointMake(currentXY._x,  currentXY._y);
+    
+    CGContextMoveToPoint(ctx, currentCGPoint.x, currentCGPoint.y);
+    CGContextAddLineToPoint(ctx, point.x, point.y);
+    
     
     CGContextStrokePath(ctx);
     
@@ -805,19 +811,22 @@
         // to green distance is distance from aim location to center of the green location
         CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
         
-        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
-        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
+        double shotDistanceMeters = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistanceMeters = [centerOfGreen distanceFromLocation: aimCLLocation];
         
-        if (shotDistance > 999.00f) {
+        double shotDistanceYards = shotDistanceMeters * METERS_TO_YARDS;
+        double approachDistanceYards = approachDistanceMeters * METERS_TO_YARDS;
+        
+        if (shotDistanceYards > 999.00f) {
             lblShotDistance.text = @">999";
         } else {
-            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance];
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistanceYards];
         }
         
-        if (approachDistance > 999.00f) {
+        if (approachDistanceYards > 999.00f) {
             lblToGreenDistance.text = @">999";
         } else {
-            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance];
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistanceYards];
         }
         
         // redraw the picture
@@ -886,19 +895,22 @@
         // to green distance is distance from aim location to center of the green location
         CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
         
-        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
-        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
+        double shotDistanceMeters = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistanceMeters = [centerOfGreen distanceFromLocation: aimCLLocation];
         
-        if (shotDistance > 999.00f) {
+        double shotDistanceYards = shotDistanceMeters * METERS_TO_YARDS;
+        double approachDistanceYards = approachDistanceMeters * METERS_TO_YARDS;
+        
+        if (shotDistanceYards > 999.00f) {
             lblShotDistance.text = @">999";
         } else {
-            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance];
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistanceYards];
         }
         
-        if (approachDistance > 999.00f) {
+        if (approachDistanceYards > 999.00f) {
             lblToGreenDistance.text = @">999";
         } else {
-            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance];
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistanceYards];
         }
         
         // redraw the picture
