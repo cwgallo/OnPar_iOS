@@ -1215,8 +1215,8 @@
 		B611329616CB0F680032AD4B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chad Galloway (C488838BQ8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chad Galloway (C488838BQ8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kevin Benton (P3V288E2RC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kevin Benton (P3V288E2RC)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OnPar2/OnPar2-Prefix.pch";
 				INFOPLIST_FILE = "OnPar2/OnPar2-Info.plist";
@@ -1231,8 +1231,8 @@
 		B611329716CB0F680032AD4B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chad Galloway (C488838BQ8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chad Galloway (C488838BQ8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kevin Benton (P3V288E2RC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kevin Benton (P3V288E2RC)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OnPar2/OnPar2-Prefix.pch";
 				INFOPLIST_FILE = "OnPar2/OnPar2-Info.plist";

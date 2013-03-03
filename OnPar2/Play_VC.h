@@ -13,6 +13,9 @@
 #define CLUBTYPE   0
 #define CLUBNUMBER 1
 
+#define degreesToRadians(x) (M_PI * x / 180.0)
+#define radiandsToDegrees(x) (x * 180.0 / M_PI)
+
 @interface Play_VC : UIViewController <UIScrollViewDelegate, CLLocationManagerDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 {
     UIPickerView *clubPicker;

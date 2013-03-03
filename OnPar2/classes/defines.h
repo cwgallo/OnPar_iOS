@@ -60,6 +60,7 @@ FOUNDATION_EXPORT int const BULLDOGS;
 
 // Earth radius in yards
 FOUNDATION_EXPORT double const EARTH_RADIUS_IN_YARDS;
+FOUNDATION_EXPORT double const EARTH_RADIUS_IN_METERS;
 FOUNDATION_EXPORT double const METERS_TO_YARDS;
 
 // tee constants
