@@ -782,42 +782,10 @@
         // FOR TESTING
         XYPair *xypair = [math getXYFromSelectedLatLon:llpair InImageView:myImageView OnHole:currentHole];
         
-        // current location
-        LLPair *currentLatLong = [[LLPair alloc] initWithLat: self.lastLocation.coordinate.latitude  andLon: self.lastLocation.coordinate.longitude];
-        
-        Math *m = [[Math alloc] init];
-        
-        XYPair *currentXY = [m getXYFromSelectedLatLon: currentLatLong InImageView: self.myImageView OnHole: currentHole];
-        
         NSLog(@"TESTING OF NEW FUNCTION");
         NSLog(@"ORIGINAL XY: %@", aim);
         NSLog(@"DERIVED GPS: %@", llpair);
         NSLog(@"DERIVED XY:  %@", xypair);
-        NSLog(@"TESTING OF CURRENT LOCATION");
-        NSLog(@"START LOCATION: %@", currentLatLong);
-        NSLog(@"START XY: %@", currentXY);
-        
-        /*CLLocation *tee = [[CLLocation alloc] initWithLatitude: [currentHole.firstRefLat floatValue] longitude: [currentHole.firstRefLong floatValue]];
-        CLLocation *green = [[CLLocation alloc] initWithLatitude: [currentHole.secondRefLat floatValue] longitude: [currentHole.secondRefLong floatValue]];
-        
-        NSLog(@"Distance from tee to green in meters: %.8f", [tee distanceFromLocation: green]);
-        NSLog(@"Distance from tee to green in yards: %.8f", [tee distanceFromLocation: green] * METERS_TO_YARDS);
-        
-        CLLocationCoordinate2D tee2D = CLLocationCoordinate2DMake(tee.coordinate.latitude, tee.coordinate.longitude);
-        CLLocationCoordinate2D green2D = CLLocationCoordinate2DMake(green.coordinate.latitude, green.coordinate.longitude);
-        
-        float heading = [self getHeadingForDirectionFromCoordinate: tee2D toCoordinate: green2D];
-        
-        NSLog(@"HEADING: %.8f", heading);
-        if (heading >= 0 && heading < 90) {
-            NSLog(@"Heading between north and east");
-        } else if (heading >= 90 && heading < 180) {
-            NSLog(@"Heading between east and south");
-        } else if (heading >= 180 && heading < 270) {
-            NSLog(@"Heading between south and west");
-        } else {
-            NSLog(@"Heading between west and north");
-        }*/
         
         // END TESTING
 
@@ -896,45 +864,10 @@
         // FOR TESTING
         XYPair *xypair = [math getXYFromSelectedLatLon:llpair InImageView:myImageView OnHole:currentHole];
         
-        // current location
-        LLPair *currentLatLong = [[LLPair alloc] initWithLat: self.lastLocation.coordinate.latitude  andLon: self.lastLocation.coordinate.longitude];
-        
-        Math *m = [[Math alloc] init];
-        
-        XYPair *currentXY = [m getXYFromSelectedLatLon: currentLatLong InImageView: self.myImageView OnHole: currentHole];
-        
         NSLog(@"TESTING OF NEW FUNCTION");
         NSLog(@"ORIGINAL XY: %@", aim);
         NSLog(@"DERIVED GPS: %@", llpair);
         NSLog(@"DERIVED XY:  %@", xypair);
-        NSLog(@"TESTING OF START LOCATION");
-        NSLog(@"START LOCATION: %@", currentLatLong);
-        NSLog(@"START XY: %@", currentXY);
-        
-        /*CLLocation *tee = [[CLLocation alloc] initWithLatitude: [currentHole.firstRefLat floatValue] longitude: [currentHole.firstRefLong floatValue]];
-        CLLocation *green = [[CLLocation alloc] initWithLatitude: [currentHole.secondRefLat floatValue] longitude: [currentHole.secondRefLong floatValue]];
-        
-        NSLog(@"Distance from tee to green in meters: %.8f", [tee distanceFromLocation: green]);
-        NSLog(@"Distance from tee to green in yards: %.8f", [tee distanceFromLocation: green] * METERS_TO_YARDS);
-        
-        CLLocationCoordinate2D tee2D = CLLocationCoordinate2DMake(tee.coordinate.latitude, tee.coordinate.longitude);
-        CLLocationCoordinate2D green2D = CLLocationCoordinate2DMake(green.coordinate.latitude, green.coordinate.longitude);
-        
-        float heading = [self getHeadingForDirectionFromCoordinate: tee2D toCoordinate: green2D];
-        
-        NSLog(@"HEADING: %.8f", heading);
-        if (heading >= 0 && heading < 90) {
-            NSLog(@"Heading between north and east");
-        } else if (heading >= 90 && heading < 180) {
-            NSLog(@"Heading between east and south");
-        } else if (heading >= 180 && heading < 270) {
-            NSLog(@"Heading between south and west");
-        } else {
-            NSLog(@"Heading between west and north");
-        }
-        
-        CLLocation *aimLocationTest = [self GPSLocationFromXYCoordinate: aim];
-        NSLog(@"AIM LOCATION TEST: %@", aimLocationTest);*/
         
         // END TESTING
         
@@ -1258,112 +1191,6 @@
 - (void)showNavBar
 {
     [[[self navigationController] navigationBar] setHidden:NO];
-}
-
-- (float)getHeadingForDirectionFromCoordinate:(CLLocationCoordinate2D)fromLoc toCoordinate:(CLLocationCoordinate2D)toLoc
-{
-    float fLat = degreesToRadians(fromLoc.latitude);
-    float fLng = degreesToRadians(fromLoc.longitude);
-    float tLat = degreesToRadians(toLoc.latitude);
-    float tLng = degreesToRadians(toLoc.longitude);
-    
-    float degree = radiandsToDegrees(atan2(sin(tLng-fLng)*cos(tLat), cos(fLat)*sin(tLat)-sin(fLat)*cos(tLat)*cos(tLng-fLng)));
-    
-    if (degree >= 0) {
-        return degree;
-    } else {
-        return 360+degree;
-    }
-}
-
-- (CLLocationCoordinate2D) getFinalDestinationFromStart: (CLLocationCoordinate2D) start bearing: (float) bearing distance: (double) distance
-{
-    // bearing should be in radians
-    
-    double lat2 = asin(sin(start.latitude) * cos(distance/EARTH_RADIUS_IN_METERS) + cos(start.latitude) * sin(distance/EARTH_RADIUS_IN_METERS) * cos(bearing));
-    
-    double lon2 = start.longitude + atan2(cos(distance/EARTH_RADIUS_IN_METERS) - sin(start.latitude) * sin(lat2), sin(bearing) + sin(distance/EARTH_RADIUS_IN_METERS) * cos(start.latitude));
-    
-    lon2 = (float)((int)(lon2 * M_PI*3) % (int)(2*M_PI)) - M_PI;
-    
-    return CLLocationCoordinate2DMake(lat2, lon2);
-}
-
-- (CLLocation *) GPSLocationFromXYCoordinate: (XYPair *) xy
-{
-    // not quite working yet
-    
-    
-    CLLocation *tee = [[CLLocation alloc] initWithLatitude: [currentHole.firstRefLat floatValue] longitude: [currentHole.firstRefLong floatValue]];
-    CLLocation *green = [[CLLocation alloc] initWithLatitude: [currentHole.secondRefLat floatValue] longitude: [currentHole.secondRefLong floatValue]];
-    
-    CLLocationCoordinate2D tee2D = CLLocationCoordinate2DMake(tee.coordinate.latitude, tee.coordinate.longitude);
-    CLLocationCoordinate2D green2D = CLLocationCoordinate2DMake(green.coordinate.latitude, green.coordinate.longitude);
-    
-    // get distance from tee to green in meters
-    double distanceTeeToGreenMeters = [green distanceFromLocation: tee];
-    NSLog(@"DISTANCE FROM TEE TO GREEN IN METERS: %.8f", distanceTeeToGreenMeters);
-    
-    // find bearing from tee to green
-    float headingFromTeeToGreen = [self getHeadingForDirectionFromCoordinate: tee2D toCoordinate: green2D];
-    NSLog(@"HEADING FROM TEE TO GREEN: %.8f", headingFromTeeToGreen);
-    
-    // get meters per pixel
-        // find pixel distance between green and tee pixel points
-        // divide meters by pixels
-    CGPoint teePoint = CGPointMake([currentHole.firstRefX floatValue], [currentHole.firstRefY floatValue]);
-    CGPoint greenPoint = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
-    
-    double pixelsBetweenTeeAndGreen = sqrt( pow(greenPoint.x - teePoint.x,  2.0) + pow(greenPoint.y - teePoint.y, 2.0));
-    NSLog(@"PIXELS BETWEEN TEE AND GREEN: %.8f", pixelsBetweenTeeAndGreen);
-    
-    double metersPerPixel = distanceTeeToGreenMeters / pixelsBetweenTeeAndGreen;
-    NSLog(@"METERS PER PIXEL: %.8f", metersPerPixel);
-    
-    // decide where the user touched either to the right of the line or to the left
-    // if they touch to the right of the line, add the angle to the bearing
-    // if they touch to the left, subtract the angle from the bearing
-    // if 0, don't change the bearing
-    
-    // first get slope intercept form of the line
-    // y = mx + b
-    // find the slope
-    // m = (y2 - y1) / (x2 - x1)
-    double slope = (greenPoint.y - teePoint.y) / (greenPoint.x - teePoint.x);
-    
-    // find the y intercept
-    // b = y - mx
-    double yIntercept = greenPoint.y - slope * greenPoint.x;
-    
-    double yCheck = slope * xy._x * yIntercept;
-    
-    double finalBearing = headingFromTeeToGreen;
-    
-    if (xy._y < yCheck) {
-        // closer to origin
-        // technically up and to the left of the line between tee and green
-        // subtract the angle from the bearing
-        NSLog(@"TO THE LEFT OF THE TEE TO HOLE BEARING");
-    } else if (xy._y > yCheck) {
-        
-        // farther from origin
-        // technically down and to the right of the line
-        // add the angle to the bearing
-        NSLog(@"TO THE RIGHT OF THE TEE TO HOLE BEARING");
-    } else {
-        // dont do anything to the bearing
-        NSLog(@"ON THE TEE TO HOLE BEARING");
-    }
-    
-    // get distance from start pixel to aim pixel
-    double aimDistance = sqrt( pow(xy._x - teePoint.x,  2.0) + pow(xy._y - teePoint.y, 2.0)) * metersPerPixel;
-    NSLog(@"AIM DISTANCE: %.8f", aimDistance);
-    NSLog(@"AIM DISTANCE IN YARDS: %.8f", aimDistance * METERS_TO_YARDS);
-    
-    CLLocationCoordinate2D aimCoordinate = [self getFinalDestinationFromStart: tee2D bearing: finalBearing distance:aimDistance];
-    
-    return [[CLLocation alloc] initWithLatitude: aimCoordinate.latitude longitude: aimCoordinate.longitude];
-    
 }
 
 @end
