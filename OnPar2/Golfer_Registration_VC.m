@@ -179,6 +179,20 @@
         [alert show];
     }
     
+    NSString *memberIDFilter = @"^[0-9]{4,4}M-[0-9]{6,6}$";
+    NSPredicate *memIDTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", memberIDFilter];
+    
+    if (![memIDTest evaluateWithObject: self.emailAddressTextField.text]) {
+        inputValidationPassed = NO;
+        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The membership ID you entered is not a valid membership ID. Please try again."];
+        [alert applyCustomAlertAppearance];
+        __weak AHAlertView *weakAlert = alert;
+        [alert addButtonWithTitle:@"OK" block:^{
+            weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
+        }];
+        [alert show];
+    }
+    
     if (self.birthdateTextField.text.length != 0) {
         // first check to see if there is input in this field,
         // make sure it was formatted correctly on input

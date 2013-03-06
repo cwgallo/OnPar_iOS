@@ -1193,4 +1193,18 @@
     [[[self navigationController] navigationBar] setHidden:NO];
 }
 
+// rotation testing
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+    if (orientation == UIInterfaceOrientationPortrait)
+        return YES;
+    
+    return NO;
+}
+
 @end
