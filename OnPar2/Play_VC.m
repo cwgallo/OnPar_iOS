@@ -697,15 +697,17 @@
     
     CGContextStrokePath(ctx);
     
+        
+    UIImage *currentIcon = [UIImage imageNamed:@"current2.png"];
+    [currentIcon drawInRect:CGRectMake( current.x - 10, current.y - 10, currentIcon.size.width, currentIcon.size.height)];
+    
+    UIImage *greenIcon = [UIImage imageNamed:@"green2.png"];
+    [greenIcon drawInRect:CGRectMake( green.x - 10, green.y - 10, greenIcon.size.width, greenIcon.size.height)];
+    
     // draw bullseye for aim
     //[fgImage drawInRect:CGRectMake( point.x - 10, point.y - 10, fgImage.size.width, fgImage.size.height)];
     [fgImage drawInRect:CGRectMake( point.x - 15, point.y - 15, fgImage.size.width, fgImage.size.height)];
-    
-    UIImage *currentIcon = [UIImage imageNamed:@"current.png"];
-    [currentIcon drawInRect:CGRectMake( current.x - 15, current.y - 15, fgImage.size.width, fgImage.size.height)];
-    
-    UIImage *greenIcon = [UIImage imageNamed:@"green.png"];
-    [greenIcon drawInRect:CGRectMake( green.x - 15, green.y - 15, fgImage.size.width, fgImage.size.height)];
+
     
     UIFont *font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:40];
     [lblShotDistance setFont: font];
