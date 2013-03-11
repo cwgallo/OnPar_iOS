@@ -177,36 +177,68 @@
             weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
         }];
         [alert show];
-    }
-    
-    if (self.birthdateTextField.text.length != 0) {
-        // first check to see if there is input in this field,
-        // make sure it was formatted correctly on input
-        // this regex lets the user put in only one number for both
-        // month and day
-        // they have to put in 4 digits for year
-        NSString *regexp = @"[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}";
-        NSPredicate *myTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexp];
-        
-        if ([myTest evaluateWithObject: self.birthdateTextField.text]) {
-            // format the birthdate for proper mySQL format
-            // yyyy-mm-dd
+    } else {
+        if (self.birthdateTextField.text.length != 0) {
+            // first check to see if there is input in this field,
+            // make sure it was formatted correctly on input
+            // this regex lets the user put in only one number for both
+            // month and day
+            // they have to put in 4 digits for year
+            NSString *regexp = @"[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}";
+            NSPredicate *myTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexp];
             
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat: @"MM/dd/yyyy"];
-            NSDate *date = [formatter dateFromString: self.birthdateTextField.text];
-            [formatter setDateFormat: @"yyyy-MM-dd"];
-            formattedBirthDate = [formatter stringFromDate: date];
-            
+            if ([myTest evaluateWithObject: self.birthdateTextField.text]) {
+                // format the birthdate for proper mySQL format
+                // yyyy-mm-dd
+                
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat: @"MM/dd/yyyy"];
+                NSDate *date = [formatter dateFromString: self.birthdateTextField.text];
+                [formatter setDateFormat: @"yyyy-MM-dd"];
+                formattedBirthDate = [formatter stringFromDate: date];
+                
+                if (self.membershipNumberTextField.text.length != 0) {
+                    NSString *memberIDFilter = @"^[0-9]{4,4}M-[0-9]{6,6}$";
+                    NSPredicate *memIDTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", memberIDFilter];
+                    
+                    if (![memIDTest evaluateWithObject: self.emailAddressTextField.text]) {
+                        inputValidationPassed = NO;
+                        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The membership ID you entered is not a valid membership ID. Please try again."];
+                        [alert applyCustomAlertAppearance];
+                        __weak AHAlertView *weakAlert = alert;
+                        [alert addButtonWithTitle:@"OK" block:^{
+                            weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
+                        }];
+                        [alert show];
+                    }
+                }
+                
+            } else {
+                inputValidationPassed = NO;
+                AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The birthdate you entered is not a valid format. Input mm/dd/yyyy"];
+                [alert applyCustomAlertAppearance];
+                __weak AHAlertView *weakAlert = alert;
+                [alert addButtonWithTitle:@"OK" block:^{
+                    weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
+                }];
+                [alert show];
+            }
         } else {
-            inputValidationPassed = NO;
-            AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The birthdate you entered is not a valid format. Input mm/dd/yyyy"];
-            [alert applyCustomAlertAppearance];
-            __weak AHAlertView *weakAlert = alert;
-            [alert addButtonWithTitle:@"OK" block:^{
-                weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
-            }];
-            [alert show];
+            if (self.membershipNumberTextField.text.length != 0) {
+                NSString *memberIDFilter = @"^[0-9]{4,4}M-[0-9]{6,6}$";
+                NSPredicate *memIDTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", memberIDFilter];
+                
+                if (![memIDTest evaluateWithObject: self.emailAddressTextField.text]) {
+                    inputValidationPassed = NO;
+                    AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Invalid Input" message:@"The membership ID you entered is not a valid membership ID. Please try again."];
+                    [alert applyCustomAlertAppearance];
+                    __weak AHAlertView *weakAlert = alert;
+                    [alert addButtonWithTitle:@"OK" block:^{
+                        weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
+                    }];
+                    [alert show];
+                }
+            }
         }
     }
     

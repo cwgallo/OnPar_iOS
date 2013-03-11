@@ -181,4 +181,10 @@
     }
 }
 
+// rotation testing
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 @end

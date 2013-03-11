@@ -98,6 +98,7 @@
     self.locationMgr = [[CLLocationManager alloc] init];
     
     self.locationMgr.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationMgr.distanceFilter = 3;
     self.locationMgr.delegate = self;
     
     // the app has to have services enabled to function
@@ -831,22 +832,19 @@
         // to green distance is distance from aim location to center of the green location
         CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
         
-        double shotDistanceMeters = [aimCLLocation distanceFromLocation: self.lastLocation];
-        double approachDistanceMeters = [centerOfGreen distanceFromLocation: aimCLLocation];
+        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
         
-        double shotDistanceYards = shotDistanceMeters * METERS_TO_YARDS;
-        double approachDistanceYards = approachDistanceMeters * METERS_TO_YARDS;
-        
-        if (shotDistanceYards > 999.00f) {
+        if (shotDistance > 999.00f) {
             lblShotDistance.text = @">999";
         } else {
-            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistanceYards];
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance * METERS_TO_YARDS];
         }
         
-        if (approachDistanceYards > 999.00f) {
+        if (approachDistance > 999.00f) {
             lblToGreenDistance.text = @">999";
         } else {
-            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistanceYards];
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance * METERS_TO_YARDS];
         }
         
         // redraw the picture
@@ -928,22 +926,19 @@
         // to green distance is distance from aim location to center of the green location
         CLLocation *aimCLLocation = [[CLLocation alloc] initWithLatitude: llpair._lat longitude: llpair._lon];
         
-        double shotDistanceMeters = [aimCLLocation distanceFromLocation: self.lastLocation];
-        double approachDistanceMeters = [centerOfGreen distanceFromLocation: aimCLLocation];
+        double shotDistance = [aimCLLocation distanceFromLocation: self.lastLocation];
+        double approachDistance = [centerOfGreen distanceFromLocation: aimCLLocation];
         
-        double shotDistanceYards = shotDistanceMeters * METERS_TO_YARDS;
-        double approachDistanceYards = approachDistanceMeters * METERS_TO_YARDS;
-        
-        if (shotDistanceYards > 999.00f) {
+        if (shotDistance > 999.00f) {
             lblShotDistance.text = @">999";
         } else {
-            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistanceYards];
+            lblShotDistance.text = [NSString stringWithFormat: @"%.0f", shotDistance * METERS_TO_YARDS];
         }
         
-        if (approachDistanceYards > 999.00f) {
+        if (approachDistance > 999.00f) {
             lblToGreenDistance.text = @">999";
         } else {
-            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistanceYards];
+            lblToGreenDistance.text = [NSString stringWithFormat: @"%.0f", approachDistance * METERS_TO_YARDS];
         }
         
         // redraw the picture
@@ -1229,6 +1224,20 @@
 - (void)showNavBar
 {
     [[[self navigationController] navigationBar] setHidden:NO];
+}
+
+// rotation testing
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+    if (orientation == UIInterfaceOrientationPortrait)
+        return YES;
+    
+    return NO;
 }
 
 @end

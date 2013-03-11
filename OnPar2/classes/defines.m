@@ -56,6 +56,7 @@ int const COWBELLS  = 3;
 int const BULLDOGS  = 4;
 
 double const EARTH_RADIUS_IN_YARDS = 13950131.0/2;
+double const EARTH_RADIUS_IN_METERS = 6371000.0;
 double const METERS_TO_YARDS = 1.09361;
 
 int const STAGE_AIM           = 0;
