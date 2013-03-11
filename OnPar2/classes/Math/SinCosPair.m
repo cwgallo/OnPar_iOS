@@ -38,8 +38,8 @@
     return self;
 }
 
-- (id) initWithSinCosPair: (SinCosPair*)pair{
-    
+- (id) initWithSinCosPair: (SinCosPair*)pair
+{    
     self = [super init];
     
     if(self){

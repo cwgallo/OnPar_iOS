@@ -659,48 +659,68 @@
               inImage:(UIImage*) bgImage
               atPoint:(CGPoint)  point
 {
-    UIGraphicsBeginImageContextWithOptions(bgImage.size, FALSE, 0.0);
+     UIGraphicsBeginImageContextWithOptions(bgImage.size, FALSE, 0.0);
     [bgImage drawInRect:CGRectMake( 0, 0, bgImage.size.width, bgImage.size.height)];
-    [fgImage drawInRect:CGRectMake( point.x - 10, point.y - 10, fgImage.size.width, fgImage.size.height)];
+    
+    
+    // get current position
+    LLPair *currentLatLong = [[LLPair alloc] initWithLat: self.lastLocation.coordinate.latitude  andLon: self.lastLocation.coordinate.longitude];
+    Math *m = [[Math alloc] init];
+    XYPair *currentXY = [m getXYFromSelectedLatLon: currentLatLong InImageView: self.myImageView OnHole: currentHole];
+    
+    // define important points
+    CGPoint current = CGPointMake(currentXY._x,  currentXY._y);
+    NSLog(@"current point: (%f, %f)", current.x, current.y);
+    
+    CGPoint aim = point;
+    NSLog(@"aim point: (%f, %f)", aim.x, aim.y);
+    
+    CGPoint green = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
+    NSLog(@"green point: (%f, %f)", green.x, green.y);
+
     
     // draw lines from starting location to aim
     // and from aim to center of green
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
-    CGContextSetLineWidth(ctx, 2.0);
+    CGContextSetShadowWithColor(ctx, CGSizeMake(-2, -2), 0, [UIColor darkTextColor].CGColor);
+    CGContextSetLineWidth(ctx, 3.0);
     
-    // center of green point
-    CGContextMoveToPoint(ctx, point.x, point.y);
-    CGPoint greenCenter = CGPointMake([currentHole.secondRefX floatValue], [currentHole.secondRefY floatValue]);
-    CGContextAddLineToPoint(ctx, greenCenter.x, greenCenter.y);
+    // draw line from current location to aim
+    CGContextMoveToPoint(ctx, current.x, current.y);
+    CGContextAddLineToPoint(ctx, aim.x, aim.y);
     
-    // current location
-    // TODO - do reverse geometry to find the pixel value of the current location
-    LLPair *currentLatLong = [[LLPair alloc] initWithLat: self.lastLocation.coordinate.latitude  andLon: self.lastLocation.coordinate.longitude];
-    
-    Math *m = [[Math alloc] init];
-    
-    XYPair *currentXY = [m getXYFromSelectedLatLon: currentLatLong InImageView: self.myImageView OnHole: currentHole];
-    
-    CGPoint currentCGPoint = CGPointMake(currentXY._x,  currentXY._y);
-    
-    CGContextMoveToPoint(ctx, currentCGPoint.x, currentCGPoint.y);
-    CGContextAddLineToPoint(ctx, point.x, point.y);
-    
+    // draw line from aim to center of green
+    CGContextMoveToPoint(ctx, aim.x, aim.y);
+    CGContextAddLineToPoint(ctx, green.x, green.y);
     
     CGContextStrokePath(ctx);
     
-    // recenter labels to be above and below the reddot
-    //NSLog(@"POINT: %.0f, %.0f", point.x, point.y);
-    //NSLog(@"SHOT DISTANCE POINT: %.0f, %.0f", point.x + 10, point.y + 10);
-    //self.lblShotDistance.center = CGPointMake(point.x - 10, point.y - 10];
+    // draw bullseye for aim
+    //[fgImage drawInRect:CGRectMake( point.x - 10, point.y - 10, fgImage.size.width, fgImage.size.height)];
+    [fgImage drawInRect:CGRectMake( point.x - 15, point.y - 15, fgImage.size.width, fgImage.size.height)];
     
-    //CGPoint bgGreenPoint = CGPointMake(point.x, point.y);
-    //NSLog(@"BG POINT: %.0f, %.0f", bgGreenPoint.x, bgGreenPoint.y);
-    //CGPoint fgGreenPoint = [[self.lblToGreenDistance superview] convertPoint: bgGreenPoint fromView: self.myImageView];
-    //NSLog(@"FG POINT: %.0f, %.0f", fgGreenPoint.x, fgGreenPoint.y);
-    //self.lblToGreenDistance.center = bgGreenPoint;
-    //[self.lblToGreenDistance drawTextInRect: CGRectMake(point.x, point.y, fgImage.size.width, fgImage.size.height)];
+    UIImage *currentIcon = [UIImage imageNamed:@"current.png"];
+    [currentIcon drawInRect:CGRectMake( current.x - 15, current.y - 15, fgImage.size.width, fgImage.size.height)];
+    
+    UIImage *greenIcon = [UIImage imageNamed:@"green.png"];
+    [greenIcon drawInRect:CGRectMake( green.x - 15, green.y - 15, fgImage.size.width, fgImage.size.height)];
+    
+    UIFont *font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:40];
+    [lblShotDistance setFont: font];
+    [lblToGreenDistance setFont: font];
+    
+    UILabel *lblToGreenMovable = lblToGreenDistance;
+    UILabel *lblShotMovable = lblShotDistance;
+    
+    // hide old labels
+    [lblShotDistance setHidden:YES];
+    [lblToGreenDistance setHidden:YES];
+    
+    [lblShotMovable drawTextInRect:CGRectMake(aim.x - (aim.x - current.x)/2, aim.y + (current.y - aim.y)/2, 100, 1)];
+    
+    [lblToGreenMovable drawTextInRect: CGRectMake(green.x - (green.x - aim.x)/2, green.y + (aim.y - green.y)/2, 100, 10)];
+    
     
     // these lines have to be the last three lines in the function
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -833,11 +853,10 @@
         NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
         
         UIImage *holeImage = [UIImage imageNamed:filename];
-        UIImage *redDot = [UIImage imageNamed: @"reddot.png"];
+        //UIImage *aimDot = [UIImage imageNamed: @"aim.png"];
+        UIImage *aimDot = [UIImage imageNamed: @"aim2.png"];
         
-        UIImage *newImage = [self drawImage: redDot
-                                    inImage: holeImage
-                                    atPoint: aimLocation];
+        UIImage *newImage = [self drawImage: aimDot inImage: holeImage atPoint: aimLocation];
         
         [myImageView setImage: newImage];
         
@@ -845,6 +864,7 @@
         self.doneButton.hidden = NO;
     }
 }
+
 
 - (IBAction)handleLongPress: (UIGestureRecognizer *)recognizer
 {
@@ -856,6 +876,19 @@
         // myImageView is 1/2 size of original image so multiply by 2 to get original pixel values
         aimLocation.x *= 2;
         aimLocation.y *= 2;
+        
+        // constraints on x value
+        if (aimLocation.x > self.myImageView.image.size.width)
+            aimLocation.x = self.myImageView.image.size.width;
+       if (aimLocation.x < 0)
+           aimLocation.x = 0;
+        
+        // constraints on y value
+        if (aimLocation.y > self.myImageView.image.size.height)
+            aimLocation.y = self.myImageView.image.size.height;
+        if (aimLocation.y < 0)
+            aimLocation.y = 0;
+        
         
         XYPair *aim = [[XYPair alloc] initWithX:aimLocation.x andY:aimLocation.y];
         
@@ -917,11 +950,10 @@
         NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
         
         UIImage *holeImage = [UIImage imageNamed:filename];
-        UIImage *redDot = [UIImage imageNamed: @"reddot.png"];
+        //UIImage *aimDot = [UIImage imageNamed: @"aim.png"];
+        UIImage *aimDot = [UIImage imageNamed: @"aim2.png"];
         
-        UIImage *newImage = [self drawImage: redDot
-                                    inImage: holeImage
-                                    atPoint: aimLocation];
+        UIImage *newImage = [self drawImage: aimDot                          inImage: holeImage                  atPoint: aimLocation];
         
         [myImageView setImage: newImage];
         
