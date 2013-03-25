@@ -232,7 +232,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="golfer" textLabel="dMP-KF-xMN" detailTextLabel="lOT-E0-ojs" style="IBUITableViewCellStyleSubtitle" id="BgY-4K-8GA">
-                                        <rect key="frame" x="0.0" y="46" width="280" height="46"/>
+                                        <rect key="frame" x="0.0" y="46" width="280" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="240" height="43"/>
