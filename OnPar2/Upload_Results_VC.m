@@ -105,6 +105,8 @@
             // construct the JSON
             NSMutableArray *JSONholes = [[NSMutableArray alloc] init];
             
+            int totalScore = 0;
+            
             for (Hole *h in r.holes) {
                 if (h.putts == nil && h.holeScore == nil && h.shots.count == 0) {
                     // the User did not do anything on this hole. Skip it
@@ -139,6 +141,8 @@
                 [holeLow setObject: h.green_in_reg ? h.green_in_reg : [NSNull null] forKey: @"GIR"];
                 [holeLow setObject: h.putts ? h.putts : [NSNull null] forKey: @"putts"];
                 
+                totalScore += [h.holeScore intValue];
+                
                 [holeLow setObject: JSONshots forKey: @"shots"];
                 
                 NSDictionary *hole = [[NSDictionary alloc] initWithObjectsAndKeys: holeLow, @"hole", nil];
@@ -160,7 +164,7 @@
             NSMutableDictionary *round = [[NSMutableDictionary alloc] init];
             
             [round setObject: r.teeID ? r.teeID : [NSNull null] forKey: @"teeID"];
-            [round setObject: r.totalScore ? r.totalScore : [NSNull null] forKey: @"totalScore"];
+            [round setObject: [NSNumber numberWithInt: totalScore] ? [NSNumber numberWithInt: totalScore] : [NSNull null] forKey: @"totalScore"];
             [round setObject: r.startTime ? r.startTime : [NSNull null] forKey: @"startTime"];
             [round setObject: course forKey: @"course"];
             [round setObject: user forKey: @"user"];
