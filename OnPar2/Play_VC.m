@@ -746,7 +746,6 @@
     if (newLocation.coordinate.latitude != self.lastLocation.coordinate.latitude &&
         newLocation.coordinate.longitude != self.lastLocation.coordinate.longitude) {
         self.lastLocation = newLocation;
-        [self.locationMgr stopUpdatingLocation];
     }
     
     // update distance to center of green

@@ -729,15 +729,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Would you like an email of your scorecard?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="195" translatesAutoresizingMaskIntoConstraints="NO" id="fDr-Pq-1wX">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="2dk-UR-gmW"/>
-                                    <constraint firstAttribute="width" constant="195" id="TXo-Qh-UMI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LaE-8J-6fu">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Upload Now!">
@@ -754,8 +745,6 @@
                         </subviews>
                         <color key="backgroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fDr-Pq-1wX" firstAttribute="top" secondItem="oP3-Ig-f40" secondAttribute="top" constant="20" symbolic="YES" type="default" id="6nq-fz-UOZ"/>
-                            <constraint firstItem="LaE-8J-6fu" firstAttribute="centerX" secondItem="fDr-Pq-1wX" secondAttribute="centerX" type="default" id="I8f-Eu-7eC"/>
                             <constraint firstAttribute="bottom" secondItem="LaE-8J-6fu" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="r3u-S3-oVz"/>
                             <constraint firstItem="LaE-8J-6fu" firstAttribute="centerX" secondItem="oP3-Ig-f40" secondAttribute="centerX" type="default" id="vy9-x6-PGv"/>
                         </constraints>
