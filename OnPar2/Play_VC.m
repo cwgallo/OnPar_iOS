@@ -426,50 +426,32 @@
     // update user's shotNumber
     // set User's stage to stage_start
     
-    currentShot.endLatitude = [NSNumber numberWithDouble: self.lastLocation.coordinate.latitude];
-    currentShot.endLongitude = [NSNumber numberWithDouble: self.lastLocation.coordinate.longitude];
-    
-    if (currentShot.startLatitude == nil || currentShot.startLongitude == nil ||
-        currentShot.aimLatitude == nil || currentShot.aimLongitude == nil ||
-        currentShot.endLatitude == nil || currentShot.endLongitude == nil ||
-        currentShot.club == nil || currentShot.shotNumber == nil) {
-        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Error" message:@"Some field is not set."];
-        [alert applyCustomAlertAppearance];
-        __weak AHAlertView *weakAlert = alert;
-        [alert addButtonWithTitle:@"OK" block:^{
-            weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
-        }];
-        [alert show];
-    } else {
-        currentGolfer.stageInfo.stage = [NSNumber numberWithInt: STAGE_START];
-        int shotNumber = [currentGolfer.stageInfo.shotNumber intValue];
-        currentGolfer.stageInfo.shotNumber = [NSNumber numberWithInt: shotNumber + 1];
-        
-        AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"End Shot" message:@"Press OK when at the ball's location for the end of the shot."];
-        [alert applyCustomAlertAppearance];
-        __weak AHAlertView *weakAlert = alert;
-        [alert addButtonWithTitle:@"OK" block:^{
-            currentShot.startLatitude = [NSNumber numberWithDouble: self.lastLocation.coordinate.latitude];
-            currentShot.startLongitude = [NSNumber numberWithDouble: self.lastLocation.coordinate.longitude];
-            
-            weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
-        }];
-        [alert show];
-        
-        // make sure the shot is relationed to the hole
-        currentShot.hole = currentHole;
-        [currentHole addShotsObject: currentShot];
-        
+    // alert to tell them to press OK at the location of the ball
+    AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Start Shot" message:@"Press OK when at the ball's location for the end of the shot."];
+    [alert applyCustomAlertAppearance];
+    __weak AHAlertView *weakAlert = alert;
+    [alert addButtonWithTitle:@"OK" block:^{
         id appDelegate = (id)[[UIApplication sharedApplication] delegate];
+        
+        currentShot.endLatitude = [NSNumber numberWithDouble: self.lastLocation.coordinate.latitude];
+        currentShot.endLongitude = [NSNumber numberWithDouble: self.lastLocation.coordinate.longitude];
+        
+        // update the user's stage info to be at STAGE_CLUB_SELECT
+        currentGolfer.stageInfo.stage = [NSNumber numberWithInt: STAGE_START];
+        
+        // save to core data
         
         NSError *error;
         
         if (![[appDelegate managedObjectContext] save: &error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
-    }
-    
-    [self viewWillAppear: NO];
+        
+        [self viewWillAppear: NO];
+        
+        weakAlert.dismissalStyle = AHAlertViewDismissalStyleTumble;
+    }];
+    [alert show];
 }
 
 - (IBAction)doneAim:(id)sender {
