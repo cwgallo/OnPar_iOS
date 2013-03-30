@@ -98,7 +98,8 @@
     self.locationMgr = [[CLLocationManager alloc] init];
     
     self.locationMgr.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationMgr.distanceFilter = 3;
+    // set core location to update every meter moved (roughly a yard)
+    self.locationMgr.distanceFilter = 1;
     self.locationMgr.delegate = self;
     
     // the app has to have services enabled to function
