@@ -458,12 +458,15 @@
                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Green" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGD-TP-uBD">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Green:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGD-TP-uBD">
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxP-N5-gh4">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="X8M-Pn-0bw"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -509,10 +512,10 @@
                                     </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="mGD-TP-uBD" firstAttribute="centerX" secondItem="oaK-8U-eWQ" secondAttribute="centerX" type="default" id="0Hp-l6-DQH"/>
                                     <constraint firstItem="mGD-TP-uBD" firstAttribute="top" secondItem="Q43-nh-Ztt" secondAttribute="top" constant="20" symbolic="YES" type="default" id="0f2-Wh-HUH"/>
                                     <constraint firstItem="fVo-GW-RPF" firstAttribute="baseline" secondItem="028-E1-nlP" secondAttribute="baseline" type="default" id="0vW-Pp-jD6"/>
                                     <constraint firstItem="Aez-gZ-nQG" firstAttribute="leading" secondItem="oaK-8U-eWQ" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="3wK-SZ-y0B"/>
-                                    <constraint firstItem="mGD-TP-uBD" firstAttribute="leading" secondItem="Q43-nh-Ztt" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="5jj-co-MW0"/>
                                     <constraint firstItem="uxP-N5-gh4" firstAttribute="leading" secondItem="Q43-nh-Ztt" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="B9Q-nZ-xNY"/>
                                     <constraint firstItem="wwH-v2-4Bx" firstAttribute="top" secondItem="Q43-nh-Ztt" secondAttribute="top" constant="341" id="BQd-uX-SK7"/>
                                     <constraint firstItem="Cfe-ai-sSd" firstAttribute="centerY" secondItem="Q43-nh-Ztt" secondAttribute="centerY" type="default" id="Cno-aa-8S6"/>
@@ -534,7 +537,6 @@
                                     <constraint firstAttribute="bottom" secondItem="RMs-du-XdE" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="Nla-VP-VD2"/>
                                     <constraint firstItem="x8i-Ma-Fw3" firstAttribute="bottom" secondItem="aui-se-MuP" secondAttribute="bottom" type="default" id="OJT-W9-tAg"/>
                                     <constraint firstItem="TLe-Ir-McU" firstAttribute="baseline" secondItem="mGD-TP-uBD" secondAttribute="baseline" type="default" id="QDi-gh-xfk"/>
-                                    <constraint firstItem="uxP-N5-gh4" firstAttribute="trailing" secondItem="mGD-TP-uBD" secondAttribute="trailing" type="default" id="RKe-Jl-2H4"/>
                                     <constraint firstItem="oaK-8U-eWQ" firstAttribute="leading" secondItem="Q43-nh-Ztt" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="UH1-2O-jxZ"/>
                                     <constraint firstItem="Sfd-YL-kDL" firstAttribute="baseline" secondItem="erA-kt-bOW" secondAttribute="baseline" type="default" id="V2A-LR-ZdH"/>
                                     <constraint firstItem="Sfd-YL-kDL" firstAttribute="leading" secondItem="Q43-nh-Ztt" secondAttribute="leading" constant="54" id="Y5G-aH-WJx"/>

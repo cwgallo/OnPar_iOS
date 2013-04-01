@@ -736,7 +736,7 @@
     
     // display the results
     if (distance < 999.00) {
-        self.distanceToGreeLabel.text = [NSString stringWithFormat: @"%1.2f", distance * METERS_TO_YARDS];
+        self.distanceToGreeLabel.text = [NSString stringWithFormat: @"%1.0f", distance * METERS_TO_YARDS];
     } else {
         self.distanceToGreeLabel.text = @">999";
     }
