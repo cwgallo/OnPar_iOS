@@ -54,7 +54,7 @@
     //NSLog(@"selectedXY1: %@", selectedXY1);
     
     // Calculate angle of rotation
-    SinCosPair *rotation = [self angleOfRotationUsingTeeXY:teeXY1 andTeeLL:teeLLRad andGreenXY:greenXY1 andGreenLL:greenLLRad];
+    SinCosPair *rotation = [self angleOfRotationUsingTeeXY:teeXY1 andTeeLL:teeLLRad andGreenXY:greenXY1 andGreenLL:greenLLRad andHole: currentHole];
     
     
     // 2nd coordinate conversion
@@ -123,7 +123,7 @@
     XYPair *greenXY1 = [self convertXY0toXY1WithXYPair:greenXY0 andHeight:height];
     
     // Calculate angle of rotation
-    SinCosPair *rotation = [self angleOfRotationUsingTeeXY:teeXY1 andTeeLL:teeLLRad andGreenXY:greenXY1 andGreenLL:greenLLRad];
+    SinCosPair *rotation = [self angleOfRotationUsingTeeXY:teeXY1 andTeeLL:teeLLRad andGreenXY:greenXY1 andGreenLL:greenLLRad andHole: currentHole];
     
     // 2nd coordinate conversion
     XYPair *teeXY2 = [self convertXY1toXY2WithXYPair:teeXY1 andAngles:rotation];
@@ -165,9 +165,13 @@
 {
     
     XYPair *results = [[XYPair alloc] init];
-    results._y = ((sin(angles._sin)*xy._x) - (cos(angles._sin)*xy._y)) /
-    ((cos(angles._sin)*cos(angles._cos)) - (sin(angles._cos)*sin(angles._sin)));
-    results._x = (xy._x + (results._y * sin(angles._cos))) / (cos(angles._sin));
+    //results._y = ((sin(angles._sin)*xy._x) - (cos(angles._sin)*xy._y)) /
+    //((cos(angles._sin)*cos(angles._cos)) - (sin(angles._cos)*sin(angles._sin)));
+    //results._x = (xy._x + (results._y * sin(angles._cos))) / (cos(angles._sin));
+    
+    results._x = (xy._x * angles._cos) - (xy._y * angles._sin);
+    results._y = (xy._x * angles._sin) + (xy._y * angles._cos);
+    
     return results;
 }
 
@@ -179,8 +183,10 @@
 - (XYPair*)convertXY2toXY1WithXYPair: (XYPair*)xy andAngles: (SinCosPair*)angles
 {
     XYPair *results = [[XYPair alloc] init];
-    results._y = ((sin(angles._sin) * xy._x) - (cos(angles._sin) * xy._y)) / ((cos(angles._sin) *cos(angles._cos)) - (sin(angles._cos) * sin(angles._sin)));
-    results._x = ((xy._x + (results._y * sin(angles._cos)))/ cos(angles._cos));
+    //results._y = ((sin(angles._sin) * xy._x) - (cos(angles._sin) * xy._y)) / ((cos(angles._sin) *cos(angles._cos)) - (sin(angles._cos) * sin(angles._sin)));
+    //results._x = ((xy._x  + (results._y * sin(angles._cos)))/ cos(angles._cos));
+    results._x = (xy._x * angles._cos + xy._y * angles._sin) / ((angles._cos * angles._cos) + (angles._sin * angles._sin));
+    results._y = (xy._y - results._x * angles._sin) / angles._cos;
     return results;
 }
 
@@ -196,7 +202,8 @@
 
 #pragma mark - Angle of Rotation
 
-- (SinCosPair*)angleOfRotationUsingTeeXY: (XYPair*)teeXY1 andTeeLL: (LLPair*)teeLLRad andGreenXY: (XYPair*)greenXY1 andGreenLL: (LLPair*)greenLLRad{
+- (SinCosPair*)angleOfRotationUsingTeeXY: (XYPair*)teeXY1 andTeeLL: (LLPair*)teeLLRad andGreenXY: (XYPair*)greenXY1 andGreenLL: (LLPair*)greenLLRad andHole: (Hole *) currentHole
+{
     
     // Calculate sin and cos in XY
     double sinXY = [self sinPixelUsingPoint1: (XYPair*)teeXY1 andPoint2: (XYPair*)greenXY1];
@@ -211,8 +218,8 @@
     double cosRot = [self cosLLminusXYUsingSinLL:sinLL andCosLL:cosLL andSinXY:sinXY andCosXY:cosXY];
     
     // Calculate angle
-    double sinRotation = asin(sinRot);
-    double cosRotation = acos(cosRot);
+    //double sinRotation = asin(sinRot);
+    //double cosRotation = acos(cosRot);
     
     /*
     // TESTING
@@ -223,12 +230,19 @@
     NSLog(@"From COS");
     NSLog(@"\tDegrees: %f", cosRotation*180.0/M_PI);
     NSLog(@"\tRadians: %f", cosRotation);
-	*/
+    */
     
-    // Package results
-    SinCosPair *rotation = [[SinCosPair alloc] initWithSin:sinRotation andCos:cosRotation];
-    
-    return rotation;
+    // holes 1, 7, 12, 15, 17 have to return negative sin rotation
+    if ([currentHole.holeNumber isEqualToNumber: [NSNumber numberWithInt: 1]] ||
+        [currentHole.holeNumber isEqualToNumber: [NSNumber numberWithInt: 7]] ||
+        [currentHole.holeNumber isEqualToNumber: [NSNumber numberWithInt: 12]] ||
+        [currentHole.holeNumber isEqualToNumber: [NSNumber numberWithInt: 15]] ||
+        [currentHole.holeNumber isEqualToNumber: [NSNumber numberWithInt: 17]]) {
+            return [[SinCosPair alloc] initWithSin: -sinRot andCos: cosRot];
+        } else {
+            // Package results
+            return [[SinCosPair alloc] initWithSin:sinRot andCos:cosRot];
+        }
 }
 
 
