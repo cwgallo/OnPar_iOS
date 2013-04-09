@@ -255,7 +255,7 @@
             // check for reachability
             Reachability *reach = [Reachability reachabilityWithHostname: HOSTNAME];
             
-            if ([reach isReachableViaWifi]) {
+            if ([reach isReachableViaWiFi]) {
                 
                 // start progress spinner
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo: self.view animated: YES];
