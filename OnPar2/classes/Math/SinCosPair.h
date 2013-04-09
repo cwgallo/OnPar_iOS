@@ -15,7 +15,7 @@
 
 - (id)init;
 - (id)initWithSin: (double)sin andCos: (double)cos;
-- (id)initWithSinCosPair: (SinCosPair*)pair;
+- (id) initWithXYPair: (SinCosPair*)pair;
 
 #pragma mark - Printing
 - (NSString *)description;
