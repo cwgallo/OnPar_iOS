@@ -86,9 +86,7 @@
         if ([emailTest evaluateWithObject: self.emailAddressTextField.text]) {
             
             // check for reachability
-            Reachability *reach = [Reachability reachabilityWithHostname: HOSTNAME];
-            
-            if ([reach isReachableViaWiFi]) {
+            if ([[Reachability reachabilityForLocalWiFi] isReachable]) {
     
                 // start progress spinner
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo: self.view animated: YES];
