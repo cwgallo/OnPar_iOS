@@ -25,6 +25,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    [[self.navigationController navigationBar] setTintColor:[UIColor colorWithRed:102.0/255.0f green:0 blue:0 alpha:1]];
+    
     [self hideNavBar];
 
 }

@@ -36,6 +36,9 @@
 @synthesize holeLabel, parLabel, stageLabel, distanceToGreeLabel, holeDistanceLabel;\
 @synthesize lblShotDistance, lblToGreenDistance;
 
+@synthesize lblFIR, lblFIRValue, lblGIR, lblGIRValue;
+@synthesize lblScore, lblScoreValue, imgViewCompleted;
+
 @synthesize locationMgr = _locationMgr;
 @synthesize lastLocation = _lastLocation;
 
@@ -192,18 +195,55 @@
     
     if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_START]]) {
         NSLog(@"Stage START for golfer: %@", currentGolfer.name);
-        // hide end button and show start
-        endButton.hidden = YES;
-        startButton.hidden = NO;
-        finishButton.hidden = NO;
-        doneButton.hidden = YES;
-        skipButton.hidden = NO;
+        
+        // if a score is not yet entered
+        
+        // if (!currentHole.holeScore){
+            // hide end button and show start
+            endButton.hidden = YES;
+            startButton.hidden = NO;
+            finishButton.hidden = NO;
+            doneButton.hidden = YES;
+            skipButton.hidden = NO;
+            stageLabel.hidden = NO;
+            lblScore.hidden = YES;
+            lblScoreValue.hidden = YES;
+            imgViewCompleted.hidden = YES;
+        
+            self.stageLabel.text = @"Start shot";
+         /*
+          }
+         else {
+            // if a score is entered, the hole is completed
+            
+            // hide all buttons
+            endButton.hidden = YES;
+            startButton.hidden = YES;
+            finishButton.hidden = YES;
+            doneButton.hidden = YES;
+            skipButton.hidden = NO;
+            stageLabel.hidden = YES;
+        
+            // show hole completion labels
+            
+            /*
+            lblFIR.hidden = NO;
+            lblFIRValue.text = @"Y"; // Y or N
+            lblFIRValue.hidden = NO;
+            lblGIR.hidden = NO;
+            lblGIRValue.text = @"Y"; // Y or N
+            lblGIRValue.hidden = NO;
+            */
+          /*
+            lblScore.hidden = NO;
+            lblScoreValue.text = [NSString stringWithFormat:@"%@",currentHole.holeScore]; // hole score
+            lblScoreValue.hidden = NO;
+            imgViewCompleted.hidden = NO;
+        }*/
         
         // only show these two labels in the aim stage
         lblToGreenDistance.hidden = YES;
         lblShotDistance.hidden = YES;
-        
-        self.stageLabel.text = @"Start shot";
         
     } else if ([currentGolfer.stageInfo.stage isEqualToNumber: [NSNumber numberWithInt: STAGE_CLUB_SELECT]]) {
         NSLog(@"Stage CLUB_SELECT for golfer: %@", currentGolfer.name);
@@ -649,7 +689,7 @@
 - (UIImage *)getHoleImageForUser: (User *)u
 {
     NSNumber *hole = u.stageInfo.holeNumber;
-    NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", hole, @".png"];
+    NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", hole, @"_map.png"];
     
     return [UIImage imageNamed:filename];
 }
@@ -849,7 +889,7 @@
         }
         
         // redraw the picture
-        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
+        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @"_map.png"];
         
         UIImage *holeImage = [UIImage imageNamed:filename];
         //UIImage *aimDot = [UIImage imageNamed: @"aim.png"];
@@ -943,7 +983,7 @@
         }
         
         // redraw the picture
-        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @".png"];
+        NSString *filename = [NSString stringWithFormat:@"%@%@%@", @"hole", currentHole.holeNumber, @"_map.png"];
         
         UIImage *holeImage = [UIImage imageNamed:filename];
         //UIImage *aimDot = [UIImage imageNamed: @"aim.png"];

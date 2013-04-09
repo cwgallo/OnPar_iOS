@@ -45,11 +45,20 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblToGreenDistance;
 
 
+#pragma mark - Completed Hole Labels
+@property (strong, nonatomic) IBOutlet UILabel *lblFIR;
+@property (strong, nonatomic) IBOutlet UILabel *lblFIRValue;
+@property (strong, nonatomic) IBOutlet UILabel *lblGIR;
+@property (strong, nonatomic) IBOutlet UILabel *lblGIRValue;
+@property (strong, nonatomic) IBOutlet UILabel *lblScore;
+@property (strong, nonatomic) IBOutlet UILabel *lblScoreValue;
+@property (strong, nonatomic) IBOutlet UIImageView *imgViewCompleted;
+
+
 #pragma mark - Core Location
 
 @property (nonatomic, retain) CLLocationManager *locationMgr;
 @property (nonatomic, retain) CLLocation *lastLocation;
-
 
 #pragma mark - Actions
 

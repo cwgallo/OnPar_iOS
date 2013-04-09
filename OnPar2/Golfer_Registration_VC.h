@@ -23,7 +23,7 @@
 @property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *registrationView;
 
-- (IBAction)cancel:(id)sender;
+
 - (IBAction)done:(id)sender;
 - (IBAction)teeChanged:(id)sender;
 - (IBAction)handChanged:(id)sender;

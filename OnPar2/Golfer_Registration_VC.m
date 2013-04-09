@@ -111,7 +111,10 @@
     [genderSegment2 setTag:3];
     [self.registrationView addSubview:genderSegment2];
     
-    [scrollView setContentSize: CGSizeMake(320, 1000)];
+    //[scrollView setContentSize: CGSizeMake(320, 1000)];
+    [scrollView setContentSize:CGSizeMake(registrationView.bounds.size.width, registrationView.bounds.size.height)];
+    //scrollView.canCancelContentTouches = YES;
+    scrollView.delaysContentTouches = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated

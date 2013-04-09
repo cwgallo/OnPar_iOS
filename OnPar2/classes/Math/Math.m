@@ -98,36 +98,40 @@
     
     // retrieve known points for this hole
     
-    //NSLog(@"Tee X: %@ \nTee Y: %@", currentHole.firstRefX, currentHole.firstRefY);
+    NSLog(@"Tee X: %@ \nTee Y: %@", currentHole.firstRefX, currentHole.firstRefY);
     XYPair *teeXY0 = [[XYPair alloc] initWithX: [currentHole.firstRefX doubleValue] andY: [currentHole.firstRefY doubleValue]];
-    //NSLog(@"Tee Lat: %@ \nTee Long: %@", currentHole.firstRefLat, currentHole.firstRefLong);
+    NSLog(@"Tee Lat: %@ \nTee Long: %@", currentHole.firstRefLat, currentHole.firstRefLong);
     LLPair *teeLLDeg = [[LLPair alloc] initWithLat: [currentHole.firstRefLat doubleValue] andLon: [currentHole.firstRefLong doubleValue]];
     LLPair *teeLLRad = [[LLPair alloc] initWithLLPair:[teeLLDeg deg2rad]];
     XYPair *teeLLRadFlat = [[XYPair alloc] initWithX:teeLLRad._lon andY:teeLLRad._lat];
-    //NSLog(@"FlatTee is %@", teeLLRadFlat);
+    NSLog(@"FlatTee is %@", teeLLRadFlat);
     
-    //NSLog(@"Green X: %@ \nGreen Y: %@", currentHole.secondRefX, currentHole.secondRefY);
+    NSLog(@"Green X: %@ \nGreen Y: %@", currentHole.secondRefX, currentHole.secondRefY);
     XYPair *greenXY0 = [[XYPair alloc] initWithX: [currentHole.secondRefX doubleValue] andY: [currentHole.secondRefY doubleValue]];
-    //NSLog(@"Green Lat: %@ \nGreen Long: %@", currentHole.secondRefLat, currentHole.secondRefLong);
+    NSLog(@"Green Lat: %@ \nGreen Long: %@", currentHole.secondRefLat, currentHole.secondRefLong);
     LLPair *greenLLDeg = [[LLPair alloc] initWithLat: [currentHole.secondRefLat doubleValue] andLon: [currentHole.secondRefLong doubleValue]];
     LLPair *greenLLRad = [[LLPair alloc] initWithLLPair:[greenLLDeg deg2rad]];
     XYPair *greenLLRadFlat = [[XYPair alloc] initWithX:greenLLRad._lon andY:greenLLRad._lat];
-    //NSLog(@"FlatGreen is %@", greenLLRadFlat);
+    NSLog(@"FlatGreen is %@", greenLLRadFlat);
 
     // Get height of image
     double height = imageView.bounds.size.height * 2; // times 2 bc it is only half size
-    //NSLog(@"Height of image is: %f", height);
+    NSLog(@"Height of image is: %f", height);
     
     // 1st coordinate conversion
     XYPair *teeXY1 = [self convertXY0toXY1WithXYPair:teeXY0 andHeight:height];
+    NSLog(@"teeXY1 = %@", teeXY1);
     XYPair *greenXY1 = [self convertXY0toXY1WithXYPair:greenXY0 andHeight:height];
+    NSLog(@"greenXY1 = %@", greenXY1);
     
     // Calculate angle of rotation
     SinCosPair *rotation = [self angleOfRotationUsingTeeXY:teeXY1 andTeeLL:teeLLRad andGreenXY:greenXY1 andGreenLL:greenLLRad];
     
     // 2nd coordinate conversion
     XYPair *teeXY2 = [self convertXY1toXY2WithXYPair:teeXY1 andAngles:rotation];
+    NSLog(@"teeXY2 = %@", teeXY2);
     XYPair *greenXY2 = [self convertXY1toXY2WithXYPair:greenXY1 andAngles:rotation];    
+    NSLog(@"greenXY2 = %@", greenXY2);
     
     // Get Flat Earth Scaling Factors
     XYPair *scaleFactors = [[XYPair alloc] initWithXYPair:[self getXYtoLatLonFlatEarthScaleUsingTeeXY:teeXY2 andTeeLLRadFlat:teeLLRadFlat andGreenXY:greenXY2 andGreenLLRadFlat:greenLLRadFlat]];
@@ -165,9 +169,14 @@
 {
     
     XYPair *results = [[XYPair alloc] init];
-    results._y = ((sin(angles._sin)*xy._x) - (cos(angles._sin)*xy._y)) /
-    ((cos(angles._sin)*cos(angles._cos)) - (sin(angles._cos)*sin(angles._sin)));
-    results._x = (xy._x + (results._y * sin(angles._cos))) / (cos(angles._sin));
+    
+    results._x = (xy._x * angles._cos) - (xy._y * angles._sin);
+    results._y = (xy._x * angles._sin) + (xy._y * angles._cos);
+    
+    //results._y = ((sin(angles._sin)*xy._x) - (cos(angles._sin)*xy._y)) /((cos(angles._sin)*cos(angles._cos)) - (sin(angles._cos)*sin(angles._sin)));
+    //results._y = ((angles._sin *xy._x) - (angles._cos * xy._x)); // ((angles._cos * angles._cos) - (angles._sin * angles._sin));
+    //results._x = (xy._x + (results._y * sin(angles._cos))) / (cos(angles._sin));
+    //results._x = (xy._x + (results._y * angles._sin)); // (angles._cos);
     return results;
 }
 
@@ -201,20 +210,27 @@
     // Calculate sin and cos in XY
     double sinXY = [self sinPixelUsingPoint1: (XYPair*)teeXY1 andPoint2: (XYPair*)greenXY1];
     double cosXY = [self cosPixelUsingPoint1: (XYPair*)teeXY1 andPoint2: (XYPair*)greenXY1];
+    NSLog(@"sinXY = %f", sinXY);
+    NSLog(@"cosXY = %f", cosXY);
     
     // Calculate sin and cos in LL
     double sinLL = [self sinGPSUsingPoint1:teeLLRad andPoint2:greenLLRad];
     double cosLL = [self cosGPSUsingPoint1:teeLLRad andPoint2:greenLLRad];
+    NSLog(@"sinLL = %f", sinLL);
+    NSLog(@"cosLL = %f", cosLL);
+    
     
     // Calculate sin and cos of angle of rotation
     double sinRot = [self sinLLminusXYUsingSinLL:sinLL andCosLL:cosLL andSinXY:sinXY andCosXY:cosXY];
     double cosRot = [self cosLLminusXYUsingSinLL:sinLL andCosLL:cosLL andSinXY:sinXY andCosXY:cosXY];
+    NSLog(@"sinRot = %f", sinRot);
+    NSLog(@"cosRot = %f", cosRot);
     
     // Calculate angle
     double sinRotation = asin(sinRot);
     double cosRotation = acos(cosRot);
     
-    /*
+    
     // TESTING
     NSLog(@"Angle of rotation derived... ");
     NSLog(@"From SIN");
@@ -223,11 +239,11 @@
     NSLog(@"From COS");
     NSLog(@"\tDegrees: %f", cosRotation*180.0/M_PI);
     NSLog(@"\tRadians: %f", cosRotation);
-	*/
+	
     
     // Package results
-    SinCosPair *rotation = [[SinCosPair alloc] initWithSin:sinRotation andCos:cosRotation];
-    
+    //SinCosPair *rotation = [[SinCosPair alloc] initWithSin:sinRotation andCos:cosRotation];
+    SinCosPair *rotation = [[SinCosPair alloc] initWithSin:sinRot andCos:cosRot];
     return rotation;
 }
 
@@ -260,7 +276,7 @@
 - (double)sinLLplusXYUsingSinLL: (double)sinLL andCosLL: (double)cosLL andSinXY: (double)sinXY andCosXY: (double)cosXY{
     
     return sinLL*cosXY + cosLL*sinXY;
-}
+}   
 
 - (double)sinLLminusXYUsingSinLL: (double)sinLL andCosLL: (double)cosLL andSinXY: (double)sinXY andCosXY: (double)cosXY{
     
