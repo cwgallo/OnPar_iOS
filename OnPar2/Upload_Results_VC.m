@@ -173,6 +173,8 @@
             
             NSDictionary *roundTop = [[NSDictionary alloc] initWithObjectsAndKeys: round, @"round", nil];
             
+            NSLog(@"%@", [[SBJsonWriter alloc] stringWithObject: roundTop]);
+            
             // construct the request
             [[LRResty authenticatedClientWithUsername: API_USERNAME
                                              password: API_PASSWORD
@@ -202,14 +204,16 @@
                      // hide spinner and transition
                      [MBProgressHUD hideHUDForView: self.view animated: YES];
                      
+                     // delete everything in the DB
+                     id appDelegate = (id)[[UIApplication sharedApplication] delegate];
+                     MainViewController *mvc = [[MainViewController alloc] init];
+                     [mvc deleteEverything:appDelegate];
+                     
                      // aler the user that it's done then delete everything and go to main page
                      AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Success" message:@"Your rounds have been uploaded successfully."];
                      [alert applyCustomAlertAppearance];
                      [alert addButtonWithTitle:@"OK" block:^{
-                         // delete all info in the DB and then segue back to main
-                         MainViewController *mvc = [[MainViewController alloc] init];
-                         [mvc deleteEverything:appDelegate];
-                         
+                         // segue back to main
                          [[self navigationController] popToRootViewControllerAnimated: YES];
                      }];
                      [alert show];
