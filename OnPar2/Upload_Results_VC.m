@@ -83,7 +83,7 @@
     // check for reachability
     Reachability *reach = [Reachability reachabilityWithHostname: HOSTNAME];
     
-    if ([reach isReachable]) {
+    if ([reach isReachableViaWifi]) {
         id appDelegate = (id)[[UIApplication sharedApplication] delegate];
         
         NSError *error;
