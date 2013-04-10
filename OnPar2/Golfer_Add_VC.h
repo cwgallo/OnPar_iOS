@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet SLGlowingTextField *emailAddressTextField;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *teeSegment;
+@property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;

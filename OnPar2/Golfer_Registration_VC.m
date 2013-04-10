@@ -71,9 +71,9 @@
         [self teeChanged2:index];
     }];
     [teeSegment2 setSelectionIndicatorHeight:4.0f];
-    [teeSegment2 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
+    [teeSegment2 setBackgroundColor:[UIColor colorWithRed:102.0/255.0f green:0 blue:0 alpha:1]];
     [teeSegment2 setTextColor:[UIColor whiteColor]];
-    [teeSegment2 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
+    [teeSegment2 setSelectionIndicatorColor:[UIColor whiteColor]];
     [teeSegment2 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
     [teeSegment2 setSelectedSegmentIndex:0];
     [teeSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
@@ -87,9 +87,9 @@
         [self handChanged2:index];
     }];
     [handSegment2 setSelectionIndicatorHeight:4.0f];
-    [handSegment2 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
+    [handSegment2 setBackgroundColor:[UIColor colorWithRed:102.0/255.0f green:0 blue:0 alpha:1]];
     [handSegment2 setTextColor:[UIColor whiteColor]];
-    [handSegment2 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
+    [handSegment2 setSelectionIndicatorColor:[UIColor whiteColor]];
     [handSegment2 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
     [handSegment2 setSelectedSegmentIndex:1];
     [handSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
@@ -102,11 +102,11 @@
         [self genderChanged2:index];
     }];
     [genderSegment2 setSelectionIndicatorHeight:4.0f];
-    [genderSegment2 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
+    [genderSegment2 setBackgroundColor:[UIColor colorWithRed:102.0/255.0f green:0 blue:0 alpha:1]];
     [genderSegment2 setTextColor:[UIColor whiteColor]];
-    [genderSegment2 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
+    [genderSegment2 setSelectionIndicatorColor:[UIColor whiteColor]];
     [genderSegment2 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
-    [genderSegment2 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
+    [genderSegment2 setSelectedSegmentIndex:0];
     [genderSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
     [genderSegment2 setTag:3];
     [self.registrationView addSubview:genderSegment2];

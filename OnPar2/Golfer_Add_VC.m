@@ -18,6 +18,7 @@
 
 @synthesize emailAddressTextField;
 @synthesize teeSegment;
+@synthesize scrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +39,21 @@
     
     // initialize tee to AGGIES so 0 will not get passed in
     tee = AGGIES;
+    
+    HMSegmentedControl *teeSegment2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Aggies", @"Maroons", @"Cowbells", @"Bulldogs"]];
+    [teeSegment2 setFrame:CGRectMake(20, 162, 280, 30)];
+    [teeSegment2 setIndexChangeBlock:^(NSInteger index) {
+        [self teeChanged2:index];
+    }];
+    [teeSegment2 setSelectionIndicatorHeight:4.0f];
+    [teeSegment2 setBackgroundColor:[UIColor colorWithRed:102.0/255.0f green:0 blue:0 alpha:1]];
+    [teeSegment2 setTextColor:[UIColor whiteColor]];
+    [teeSegment2 setSelectionIndicatorColor:[UIColor whiteColor]];
+    [teeSegment2 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
+    [teeSegment2 setSelectedSegmentIndex:0];
+    [teeSegment2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
+    [teeSegment2 setTag:1];
+    [self.scrollView addSubview:teeSegment2];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -289,6 +305,27 @@
 - (IBAction)teeChanged:(id)sender {
     
     switch (self.teeSegment.selectedSegmentIndex) {
+        case 0:
+            tee = AGGIES;
+            break;
+        case 1:
+            tee = MAROONS;
+            break;
+        case 2:
+            tee = COWBELLS;
+            break;
+        case 3:
+            tee = BULLDOGS;
+            break;
+        default:
+            break;
+    }
+}
+
+- (IBAction)teeChanged2:(int)index {
+    
+    //switch (self.teeSegment.selectedSegmentIndex) {
+    switch (index){
         case 0:
             tee = AGGIES;
             break;
