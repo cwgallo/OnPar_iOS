@@ -71,7 +71,7 @@ int const FEMALE = 0;
 int const RIGHT_HAND = 1;
 int const LEFT_HAND = 0;
 
-NSString *const HOSTNAME = @"shadowrealm.cse.msstate.edu";
-NSString *const BASE_URL = @"http://shadowrealm.cse.msstate.edu/gsas/API/";
+NSString *const HOSTNAME = @"192.168.1.105";
+NSString *const BASE_URL = @"192.168.1.105/API/";
 
 @end

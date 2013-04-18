@@ -172,9 +172,7 @@
     // 3. call API to get reference points for their selected tee
     
     // check for reachability
-    Reachability *reach = [Reachability reachabilityWithHostname: HOSTNAME];
-    
-    if ([reach isReachable]) {
+    if ([[Reachability reachabilityForLocalWiFi] isReachable]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo: self.view animated: YES];
         hud.labelText = @"Loading...";
         

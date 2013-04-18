@@ -81,9 +81,7 @@
     // because that will just take extra room in the central DB
     
     // check for reachability
-    Reachability *reach = [Reachability reachabilityWithHostname: HOSTNAME];
-    
-    if ([reach isReachable]) {
+    if ([[Reachability reachabilityForLocalWiFi] isReachable]) {
         id appDelegate = (id)[[UIApplication sharedApplication] delegate];
         
         NSError *error;
