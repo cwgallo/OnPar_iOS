@@ -123,14 +123,6 @@
 		B6A54C6316D08436002B0107 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6A54C5F16D083DB002B0107 /* icon@2x.png */; };
 		B6A54C6716D091DF002B0107 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C6616D091DF002B0107 /* Math.m */; };
 		B6A54C6816D091DF002B0107 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C6616D091DF002B0107 /* Math.m */; };
-		B6A54C7B16D0A462002B0107 /* DCRoundSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7416D0A462002B0107 /* DCRoundSwitch.m */; };
-		B6A54C7C16D0A462002B0107 /* DCRoundSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7416D0A462002B0107 /* DCRoundSwitch.m */; };
-		B6A54C7D16D0A462002B0107 /* DCRoundSwitchKnobLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7616D0A462002B0107 /* DCRoundSwitchKnobLayer.m */; };
-		B6A54C7E16D0A462002B0107 /* DCRoundSwitchKnobLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7616D0A462002B0107 /* DCRoundSwitchKnobLayer.m */; };
-		B6A54C7F16D0A462002B0107 /* DCRoundSwitchOutlineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7816D0A462002B0107 /* DCRoundSwitchOutlineLayer.m */; };
-		B6A54C8016D0A462002B0107 /* DCRoundSwitchOutlineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7816D0A462002B0107 /* DCRoundSwitchOutlineLayer.m */; };
-		B6A54C8116D0A462002B0107 /* DCRoundSwitchToggleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7A16D0A462002B0107 /* DCRoundSwitchToggleLayer.m */; };
-		B6A54C8216D0A462002B0107 /* DCRoundSwitchToggleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A54C7A16D0A462002B0107 /* DCRoundSwitchToggleLayer.m */; };
 		B6E2416A16CFF82100D9CA97 /* AHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2416916CFF82100D9CA97 /* AHAlertView.m */; };
 		B6E2416B16CFF82100D9CA97 /* AHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2416916CFF82100D9CA97 /* AHAlertView.m */; };
 		B6E2417716CFFEA100D9CA97 /* custom-button-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B6E2416D16CFFEA100D9CA97 /* custom-button-normal.png */; };
@@ -356,14 +348,6 @@
 		B6A54C5F16D083DB002B0107 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../icon@2x.png"; sourceTree = "<group>"; };
 		B6A54C6516D091DF002B0107 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		B6A54C6616D091DF002B0107 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
-		B6A54C7316D0A462002B0107 /* DCRoundSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitch.h; sourceTree = "<group>"; };
-		B6A54C7416D0A462002B0107 /* DCRoundSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitch.m; sourceTree = "<group>"; };
-		B6A54C7516D0A462002B0107 /* DCRoundSwitchKnobLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchKnobLayer.h; sourceTree = "<group>"; };
-		B6A54C7616D0A462002B0107 /* DCRoundSwitchKnobLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchKnobLayer.m; sourceTree = "<group>"; };
-		B6A54C7716D0A462002B0107 /* DCRoundSwitchOutlineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchOutlineLayer.h; sourceTree = "<group>"; };
-		B6A54C7816D0A462002B0107 /* DCRoundSwitchOutlineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchOutlineLayer.m; sourceTree = "<group>"; };
-		B6A54C7916D0A462002B0107 /* DCRoundSwitchToggleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchToggleLayer.h; sourceTree = "<group>"; };
-		B6A54C7A16D0A462002B0107 /* DCRoundSwitchToggleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchToggleLayer.m; sourceTree = "<group>"; };
 		B6E2416816CFF82100D9CA97 /* AHAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHAlertView.h; sourceTree = "<group>"; };
 		B6E2416916CFF82100D9CA97 /* AHAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHAlertView.m; sourceTree = "<group>"; };
 		B6E2416D16CFFEA100D9CA97 /* custom-button-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "custom-button-normal.png"; sourceTree = "<group>"; };
@@ -563,7 +547,6 @@
 			children = (
 				B61132C716CD92B90032AD4B /* Config.h */,
 				B6E2416716CFF82100D9CA97 /* AHAlertView */,
-				B6A54C7216D0A462002B0107 /* DCRoundSwitch */,
 				B62E800616D4771E006E78B1 /* Defines */,
 				B61132C816CD92B90032AD4B /* CoreDataObjects */,
 				B607C83F16D9755000ACBE12 /* HMSegmentedControl */,
@@ -807,21 +790,6 @@
 				B611329C16CD272A0032AD4B /* MSState.png */,
 			);
 			name = "Icons, Logos";
-			sourceTree = "<group>";
-		};
-		B6A54C7216D0A462002B0107 /* DCRoundSwitch */ = {
-			isa = PBXGroup;
-			children = (
-				B6A54C7316D0A462002B0107 /* DCRoundSwitch.h */,
-				B6A54C7416D0A462002B0107 /* DCRoundSwitch.m */,
-				B6A54C7516D0A462002B0107 /* DCRoundSwitchKnobLayer.h */,
-				B6A54C7616D0A462002B0107 /* DCRoundSwitchKnobLayer.m */,
-				B6A54C7716D0A462002B0107 /* DCRoundSwitchOutlineLayer.h */,
-				B6A54C7816D0A462002B0107 /* DCRoundSwitchOutlineLayer.m */,
-				B6A54C7916D0A462002B0107 /* DCRoundSwitchToggleLayer.h */,
-				B6A54C7A16D0A462002B0107 /* DCRoundSwitchToggleLayer.m */,
-			);
-			path = DCRoundSwitch;
 			sourceTree = "<group>";
 		};
 		B6E2416716CFF82100D9CA97 /* AHAlertView */ = {
@@ -1090,10 +1058,6 @@
 				B6E241B316D03FB900D9CA97 /* ZPopoverController.m in Sources */,
 				B6A54C5416D07AEA002B0107 /* Upload_Results_VC.m in Sources */,
 				B6A54C6716D091DF002B0107 /* Math.m in Sources */,
-				B6A54C7B16D0A462002B0107 /* DCRoundSwitch.m in Sources */,
-				B6A54C7D16D0A462002B0107 /* DCRoundSwitchKnobLayer.m in Sources */,
-				B6A54C7F16D0A462002B0107 /* DCRoundSwitchOutlineLayer.m in Sources */,
-				B6A54C8116D0A462002B0107 /* DCRoundSwitchToggleLayer.m in Sources */,
 				2EAA462916D27EFB00B63CD4 /* OnPar2.xcdatamodeld in Sources */,
 				2EAA462C16D27F1200B63CD4 /* Hole.m in Sources */,
 				2EAA462F16D310BC00B63CD4 /* SystemInfo.m in Sources */,
@@ -1121,10 +1085,6 @@
 				B6E241B416D03FB900D9CA97 /* ZPopoverController.m in Sources */,
 				B6A54C5516D07AEA002B0107 /* Upload_Results_VC.m in Sources */,
 				B6A54C6816D091DF002B0107 /* Math.m in Sources */,
-				B6A54C7C16D0A462002B0107 /* DCRoundSwitch.m in Sources */,
-				B6A54C7E16D0A462002B0107 /* DCRoundSwitchKnobLayer.m in Sources */,
-				B6A54C8016D0A462002B0107 /* DCRoundSwitchOutlineLayer.m in Sources */,
-				B6A54C8216D0A462002B0107 /* DCRoundSwitchToggleLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

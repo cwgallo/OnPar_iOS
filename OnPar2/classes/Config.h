@@ -23,9 +23,6 @@
 // AHAlertView
 #import "AHAlertView.h"
 
-// DCRoundSwitch
-#import "DCRoundSwitch.h"
-
 // HMSegmentedControl
 #import "HMSegmentedControl.h"
 

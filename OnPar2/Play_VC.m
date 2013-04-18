@@ -468,7 +468,7 @@
     // set User's stage to stage_start
     
     // alert to tell them to press OK at the location of the ball
-    AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"Start Shot" message:@"Press OK when at the ball's location for the end of the shot."];
+    AHAlertView *alert = [[AHAlertView alloc] initWithTitle:@"End Shot" message:@"Press OK when at the ball's location for the end of the shot."];
     [alert applyCustomAlertAppearance];
     __weak AHAlertView *weakAlert = alert;
     [alert addButtonWithTitle:@"OK" block:^{
