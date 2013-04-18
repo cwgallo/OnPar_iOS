@@ -272,9 +272,11 @@
                  
                  //NSLog(@"Count: %d", count);
                  //NSLog(@"numberOfGolers: %d", numberOfGolfers);
+                 
                  if (count == numberOfGolfers) {
                      // hide spinner and transition
                      [MBProgressHUD hideHUDForView: self.view animated: YES];
+                     
                      
                      // transition
                      [self performSegueWithIdentifier:@"settings2play" sender:self];

@@ -482,7 +482,7 @@ https://github.com/kyoshikawa/ZPopoverController</string>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="low_contrast_linen.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZOl-Jx-1s8"/>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hv7-B5-9Zr">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text">TERMS OF USE AND PRIVACY STATEMENT 
+                                <string key="text">TERMS OF USE AND PRIVACY STATEMENT 
 
 1.) Disclaimer 
 
@@ -612,7 +612,7 @@ The Web Site and/or Service(s) may include a variety of features, such as bullet
 Third Party Advertising: We use third-party ad servers and ad networks to serve advertisements when you visit our website. These companies and the advertisers themselves may use information about your visits to this and other Web sites (not including your name, address email address or telephone number) in order to provide advertisements about goods and services of interest to you. They may also use tracking technologies to measure the effectiveness of their advertisements (e.g., click stream information, browser type, time and date, subject of advertisements clicked or scrolled over) to personalize the advertising content. This Privacy Policy does not apply to, and we cannot control the activities of, such advertisers, ad servers or ad networks. You should consult the respective privacy policies of any advertisers on our website to see your options for opting out of their use of such devices. In addition, some of the ad servers and ad networks may be members of the Network Advertising Initiative, which offers a single location to opt out of ad targeting from member companies. If you opt-out of receiving targeted ads on the our website from ad servers and ad networks, you will continue to receive advertising and promotional messages after you opt-out, but they will not be customized or personalized to you based on your use of our website and/or third party websites. If you would like more information about advertisers' use of tracking technologies and about your option not to accept these cookies, you can go towww.networkadvertising.org. If you would like to learn more about how interest-based information is collected, whether the companies we use are part of an industry network regarding behavioral advertising and to know your choices about not having information used in this manner you can go to www.aboutads.info.
 
 
-Copyright 2002 - 2013, Mississippi State University, Inc., except where otherwise noted. All rights reserved.</mutableString>
+Copyright 2002 - 2013, Mississippi State University, Inc., except where otherwise noted. All rights reserved.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -2064,7 +2064,7 @@ Copyright 2002 - 2013, Mississippi State University, Inc., except where otherwis
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8g4-Bq-Swe"/>
-        <segue reference="SvY-8F-zxY"/>
+        <segue reference="Hc3-kz-0j2"/>
+        <segue reference="se9-QG-ihw"/>
     </inferredMetricsTieBreakers>
 </document>
