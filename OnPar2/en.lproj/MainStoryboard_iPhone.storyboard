@@ -28,7 +28,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="low_contrast_linen.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ymm-yY-O8C"/>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="msu_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="TSH-EP-zF0"/>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z4p-xP-ubp">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="82" id="fUc-dc-39R"/>
@@ -83,6 +82,18 @@
                                     <action selector="continueRound:" destination="2" eventType="touchUpInside" id="iqR-4G-XmX"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYT-Hp-y9x">
+                                <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="103" id="y0J-zh-9gB"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="2008_MSU_logo_web_text_whiteontrans.png" translatesAutoresizingMaskIntoConstraints="NO" id="e4I-tv-8Jc">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="233" id="ZQ1-YD-J3d"/>
+                                    <constraint firstAttribute="height" constant="70" id="d0D-m0-Ovx"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rf6-I3-uJj">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
@@ -100,21 +111,22 @@
                         <color key="backgroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xeB-vK-bKF" firstAttribute="trailing" secondItem="Z4p-xP-ubp" secondAttribute="trailing" type="default" id="0f9-8Z-aDq"/>
+                            <constraint firstItem="jYT-Hp-y9x" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="2Bi-da-zhk"/>
+                            <constraint firstItem="e4I-tv-8Jc" firstAttribute="top" secondItem="3" secondAttribute="top" constant="17" id="3Kj-DP-YIj"/>
                             <constraint firstItem="xeB-vK-bKF" firstAttribute="centerY" secondItem="Ymm-yY-O8C" secondAttribute="centerY" type="default" id="6vj-Li-T6p"/>
-                            <constraint firstItem="Rf6-I3-uJj" firstAttribute="top" secondItem="3" secondAttribute="top" constant="95" id="ACO-zO-GGq"/>
-                            <constraint firstAttribute="trailing" secondItem="Rf6-I3-uJj" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="AiC-Ff-IvU"/>
-                            <constraint firstItem="Rf6-I3-uJj" firstAttribute="top" secondItem="TSH-EP-zF0" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FqN-E6-Kw7"/>
+                            <constraint firstItem="e4I-tv-8Jc" firstAttribute="centerX" secondItem="xeB-vK-bKF" secondAttribute="centerX" type="default" id="7Uv-y5-iXJ"/>
+                            <constraint firstAttribute="trailing" secondItem="Rf6-I3-uJj" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="H0A-nR-HXI"/>
                             <constraint firstItem="Ymm-yY-O8C" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="HOX-yn-uPi"/>
-                            <constraint firstItem="TSH-EP-zF0" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="ItK-KM-DAq"/>
                             <constraint firstItem="X3V-Yn-BBq" firstAttribute="centerX" secondItem="xeB-vK-bKF" secondAttribute="centerX" type="default" id="Jry-sV-P6i"/>
                             <constraint firstItem="Ymm-yY-O8C" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="MXj-ee-P8d"/>
+                            <constraint firstItem="jYT-Hp-y9x" firstAttribute="centerX" secondItem="e4I-tv-8Jc" secondAttribute="centerX" type="default" id="Obx-QA-jlo"/>
+                            <constraint firstItem="jYT-Hp-y9x" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Q7S-10-3O3"/>
                             <constraint firstItem="X3V-Yn-BBq" firstAttribute="baseline" secondItem="Z4p-xP-ubp" secondAttribute="baseline" type="default" id="QXF-OZ-qyx"/>
-                            <constraint firstItem="TSH-EP-zF0" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="ZFH-95-bkt"/>
+                            <constraint firstAttribute="bottom" secondItem="cFZ-9X-KZU" secondAttribute="bottom" constant="53" id="WYx-qQ-Lt6"/>
+                            <constraint firstItem="jYT-Hp-y9x" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="Ybz-nf-vfN"/>
                             <constraint firstItem="Ymm-yY-O8C" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="e4F-fv-PVe"/>
-                            <constraint firstItem="xeB-vK-bKF" firstAttribute="centerX" secondItem="TSH-EP-zF0" secondAttribute="centerX" type="default" id="e9J-Z5-FAW"/>
                             <constraint firstItem="cFZ-9X-KZU" firstAttribute="leading" secondItem="xeB-vK-bKF" secondAttribute="leading" type="default" id="eKe-SL-Rpe"/>
-                            <constraint firstAttribute="bottom" secondItem="cFZ-9X-KZU" secondAttribute="bottom" constant="40" id="fLU-e3-n2n"/>
-                            <constraint firstItem="TSH-EP-zF0" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="gz2-xx-QdB"/>
+                            <constraint firstAttribute="bottom" secondItem="Rf6-I3-uJj" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="h7K-A8-28K"/>
                             <constraint firstItem="Ymm-yY-O8C" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="uu8-2e-qtd"/>
                             <constraint firstItem="X3V-Yn-BBq" firstAttribute="baseline" secondItem="cFZ-9X-KZU" secondAttribute="baseline" type="default" id="xYP-kH-Rz9"/>
                         </constraints>
@@ -247,7 +259,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="low_contrast_linen.png" translatesAutoresizingMaskIntoConstraints="NO" id="aKj-lw-Iyh"/>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARx-TT-RTh">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARx-TT-RTh">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <mutableString key="text">The purpose of onPar ('this application') is to record the actual versus intended shot patterns of a golfer throughout a round of golf.
 
@@ -394,7 +406,7 @@ WARNING: To complete this step, you must be connected to the clubhouse's WiFi.</
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="low_contrast_linen.png" translatesAutoresizingMaskIntoConstraints="NO" id="4yJ-67-fX7"/>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9XI-8D-zzF">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XI-8D-zzF">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <mutableString key="text">onPar would like to give credit to the following open source software contributions:
 
@@ -436,7 +448,7 @@ https://github.com/michaeltyson/TPKeyboardAvoiding
 --------------------------------------------------
 ZPopoverController
 --------------------------------------------------
-https://github.com/kyoshikawa/ZPopoverController </mutableString>
+https://github.com/kyoshikawa/ZPopoverController</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -468,7 +480,7 @@ https://github.com/kyoshikawa/ZPopoverController </mutableString>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="low_contrast_linen.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZOl-Jx-1s8"/>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hv7-B5-9Zr">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hv7-B5-9Zr">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <mutableString key="text">TERMS OF USE AND PRIVACY STATEMENT 
 
@@ -1887,11 +1899,11 @@ Copyright 2002 - 2013, **********NeuLion**********, Inc., except where otherwise
         </scene>
     </scenes>
     <resources>
+        <image name="2008_MSU_logo_web_text_whiteontrans.png" width="272" height="88"/>
         <image name="completed-maroon2.png" width="274" height="274"/>
         <image name="hole1_map.png" width="350" height="800"/>
         <image name="logo2.png" width="497" height="203"/>
         <image name="low_contrast_linen.png" width="256" height="256"/>
-        <image name="msu_logo.png" width="345" height="91"/>
     </resources>
     <classes>
         <class className="Finish_VC" superclassName="UIViewController">
@@ -2023,6 +2035,6 @@ Copyright 2002 - 2013, **********NeuLion**********, Inc., except where otherwise
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Hc3-kz-0j2"/>
+        <segue reference="SvY-8F-zxY"/>
     </inferredMetricsTieBreakers>
 </document>
