@@ -21,8 +21,6 @@
 		B611326116CB0F670032AD4B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B611325F16CB0F670032AD4B /* InfoPlist.strings */; };
 		B611326316CB0F670032AD4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B611326216CB0F670032AD4B /* main.m */; };
 		B611326716CB0F670032AD4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B611326616CB0F670032AD4B /* AppDelegate.m */; };
-		B611326916CB0F670032AD4B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B611326816CB0F670032AD4B /* Default.png */; };
-		B611326B16CB0F670032AD4B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B611326A16CB0F670032AD4B /* Default@2x.png */; };
 		B611326D16CB0F670032AD4B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B611326C16CB0F670032AD4B /* Default-568h@2x.png */; };
 		B611327016CB0F670032AD4B /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B611326E16CB0F670032AD4B /* MainStoryboard_iPhone.storyboard */; };
 		B611327916CB0F670032AD4B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B611327816CB0F670032AD4B /* MainViewController.m */; };
@@ -912,8 +910,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B611326116CB0F670032AD4B /* InfoPlist.strings in Resources */,
-				B611326916CB0F670032AD4B /* Default.png in Resources */,
-				B611326B16CB0F670032AD4B /* Default@2x.png in Resources */,
 				B611326D16CB0F670032AD4B /* Default-568h@2x.png in Resources */,
 				B611327016CB0F670032AD4B /* MainStoryboard_iPhone.storyboard in Resources */,
 				B611329D16CD272A0032AD4B /* MSState.png in Resources */,
@@ -1202,6 +1198,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OnPar2/OnPar2-Prefix.pch";
 				INFOPLIST_FILE = "OnPar2/OnPar2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4CF64AA5-E6F0-4AA9-AD77-68C2FEB03E61";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4CF64AA5-E6F0-4AA9-AD77-68C2FEB03E61";
@@ -1218,6 +1215,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OnPar2/OnPar2-Prefix.pch";
 				INFOPLIST_FILE = "OnPar2/OnPar2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4CF64AA5-E6F0-4AA9-AD77-68C2FEB03E61";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4CF64AA5-E6F0-4AA9-AD77-68C2FEB03E61";
